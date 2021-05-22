@@ -185,6 +185,7 @@
                             <th>Type</th>
                             <th>Bed</th>
                             <th>Bath</th>
+                            <th>images</th>
                             {{-- <th>Description</th> --}}
                             <th>Created At</th>
                             <th>Priority</th>
@@ -199,12 +200,12 @@
                         @forelse ($properties as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ count($item->images) }}</td>
+
 
                                 <td>{{ optional($item->user)->name }}</td>
                                 <td>
                                     @if (optional($item->user)->agent != null)
-                                        {{ optional($item->user->agent)->agency->name }}
+                                        {{ optional($item->user->agent->agency)->name }}
                                     @endif
                                 </td>
                                 <td>{{ optional($item->areaOne)->name }}</td>
@@ -218,6 +219,7 @@
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->bed }}</td>
                                 <td>{{ $item->bath }}</td>
+                                <td>{{ count($item->images) }}</td>
                                 {{-- <td>{{ $item->description }}</td> --}}
                                 <td>{{ $item->created_at->diffForHumans() }}</td>
 
