@@ -208,7 +208,7 @@ class PropertyController extends Controller
     }
     public function filter(Request $request)
     {
-
+       
 
         $properties = Property::orderBy('created_at', 'desc')->paginate(25);
         $area_one = AreaOne::all();
@@ -231,6 +231,9 @@ class PropertyController extends Controller
         if (isset($request->area_two_id)) {
             $properties = $properties->where('properties.area_two_id', $request->area_two_id);
         }
+        if (isset($request->structured)) {
+            $properties = $properties->where('properties.structured', $request->structured);
+        }
 
 
         $properties = $properties->paginate(25);
@@ -242,6 +245,7 @@ class PropertyController extends Controller
             'description' => $request->description,
             'area_two_id' => $request->area_two_id,
             'area_one_id' => $request->area_one_id,
+            'structured' =>  $request->structured,
         ));
 
         return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
