@@ -121,6 +121,16 @@
 
                                 </select>
                             </div>
+                            <div class="float-left mx-3 my-3">
+                                <label> Structured:</label><br>
+                                <select style="width: 129%"  class="form-control filter-control filter-select" name="structured">
+                                    <option @if (request()->get('structured') == null) selected @endif value="">Select
+                                    </option>
+                                    <option @if (request()->get('structured') == '1') selected @endif value="1">Active</option>
+                                    <option @if (request()->get('structured') == '0') selected @endif value="0">Non Active</option>
+
+                                </select>
+                            </div>
 
 
                         </div>
