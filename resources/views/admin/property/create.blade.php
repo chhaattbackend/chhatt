@@ -370,7 +370,16 @@
                                             <span></span>
                                         </label>
                                     </div>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Structured</label>
+                                    <div class="col-sm-2">
+                                        <input type="hidden" class="toggle" name="structured" value="0">
+                                        <label class="switch">
+                                            <input type="checkbox" name="advertised" value="1">
+                                            <span></span>
+                                        </label>
+                                    </div>
                                 </div>
+
 
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
