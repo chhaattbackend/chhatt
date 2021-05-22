@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\GlobalClass;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
 class Property extends JsonResource
 {
     /**
@@ -46,6 +47,7 @@ class Property extends JsonResource
         'property_for'=>$this->property_for,
         'bed'=>$this->bed,
         'bath'=>$this->bath,
+        'formatted' =>$this->formatted,
         'description'=>$this->description,
         'status'=>$this->status,
         'deleted'=>$this->deleted,
@@ -61,7 +63,7 @@ class Property extends JsonResource
         'images'=>PropertyImage::collection($this->images->sortBy('sort_order')),
         'user'=>new User($this->user),
         'social'=>new PropertySocial($this->social),
-        'formatted' =>$this->formatted,
+
 
         ];
     // }
