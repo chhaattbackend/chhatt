@@ -35,7 +35,8 @@ class Property extends Model
         'deleted',
         'status',
         'formatted',
-        'list_type'
+        'list_type',
+        'structured'
     ];
 
     public function user()
