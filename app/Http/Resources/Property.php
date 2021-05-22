@@ -61,6 +61,7 @@ class Property extends JsonResource
         'images'=>PropertyImage::collection($this->images->sortBy('sort_order')),
         'user'=>new User($this->user),
         'social'=>new PropertySocial($this->social),
+        'formatted' =>$this->formatted,
 
         ];
     // }
