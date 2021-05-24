@@ -59,8 +59,8 @@
                                 @php
                                     $userdp = Auth::user()->image;
                                 @endphp
-                                <img class="rounded-circle center mt-1 "
-                                    src="https://chhatt.s3.ap-south-1.amazonaws.com/users/{{$item->image}}" id="dpuser">
+                                <img class="rounded-circle center mt-1"
+                                    src="https://chhatt.s3.ap-south-1.amazonaws.com/users/{{$userdp}}" id="dpuser">
                             @endif
 
 
