@@ -35,13 +35,15 @@ class User extends JsonResource
                 'mobile' => $this->mobile,
                 'email' => $this->email,
                 'role' => $this->role->name,
-                'image' => $globalclass->user_image_url . $this->thumbnail,
+                'image' => 'https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png',
                 'created_at' => $this->created_at->format('D d M Y'),
                 'properties'=>count($this->properties),
                 'agent'=>new Agent(optional($this->agent)),
                 // 'agency'=>optional($this->agent)->agency,
 
             ];
+
+
         }
 
         if (strpos($this->thumbnail, "firebase") == null) {
