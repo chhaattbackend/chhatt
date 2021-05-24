@@ -21,7 +21,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderBy('created_at','desc')->paginate(25);
+        $projects = Project::orderBy('created_at', 'desc')->paginate(25);
         return new ProjectCollection($projects);
     }
 
@@ -46,24 +46,25 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   public function store(Request $request)
+    public function store(Request $request)
     {
-        $validator = \Validator::make($request->all(), [
-            'user_id' => 'required',
-            'area_three_id' => 'required',
-            'name' => 'required',
-            'address' => 'required',
-            'price' => 'required',
-            'description' => 'required',
-            'image' => 'required',
-            'thumbnail' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
+
+
+
+                Project::create([
+            'user_id' => $request->user_id,
+            'area_three_id' => $request->area_three_id,
+            'name' => $request->name,
+            'address' => $request->address,
+            'price' => $request->price,
+            'description' => $request->description,
+            'image' => $request->image,
+            'thumbnail' => $request->thumbnail,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
         ]);
 
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
+
 
         $filename = null;
 
@@ -77,7 +78,7 @@ class ProjectController extends Controller
         }
         $data = Project::create($request->except('image') + ['image' => $filename]);
         return response()->json([
-            'success'=>true
+            'success' => true
         ]);
 
         // return redirect('admin/projects')->with('u_message', 'successfuly updated!');
@@ -105,8 +106,6 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
         return new ResourcesProject($project);
-
-
     }
 
     /**
@@ -116,24 +115,31 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request)
     {
         // $filename=null;
 
-        $project = Project::find($id);
+        if(isset($request->clickapi)){
+
+            
+            Project::where('id',$request->id)->increment('project_click');
+
+        }
+
+
+        $project = Project::find($request->id);
 
         if ($request->hasfile('image')) {
             $image = $request->file('image');
             $exe = $image->getClientOriginalName();
             $filename = time() . '-' . $exe;
             $image->move(public_path('images/projects/'), $filename);
-             $project->update($request->except('image') + ['image' => $filename]);
-        } else
-        {
-             $project->update($request->except('image'));
+            $project->update($request->except('image') + ['image' => $filename]);
+        } else {
+            $project->update($request->except('image'));
         }
         return response()->json([
-            'success'=>true
+            'success' => true
         ]);
     }
 
@@ -147,7 +153,7 @@ class ProjectController extends Controller
     {
         Project::where('id', $id)->delete();
         return response()->json([
-            'success'=>true
+            'success' => true
         ]);
     }
 
