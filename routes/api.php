@@ -33,6 +33,7 @@ Route::put('payments/update', 'API\PaymentController@update');
 Route::put('properties/update', 'API\PropertyController@update');
 Route::put('users/profileupdate', 'API\UserController@profileupdate');
 Route::post('users/profileimageupdate', 'API\UserController@profileimageupdate');
+Route::put('projects/update', 'API\ProjectController@update');
 
 
 // -------------------------------------------------End Custom Update Routes-----------------------------------------------------------
@@ -80,6 +81,7 @@ Route::resource('projectshops', 'API\ProjectShopController');
 Route::resource('projectsales', 'API\ProjectSaleController');
 Route::resource('projectsalesinstallments', 'API\ProjectSaleInstallmentController');
 Route::resource('projects', 'API\ProjectController');
+
 
 // ---------------------------End Project Routes-----------------------------------------
 
