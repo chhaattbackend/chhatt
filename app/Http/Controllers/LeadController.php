@@ -453,9 +453,19 @@ class LeadController extends Controller
         }
         if (isset($request->responsestatus_id)) {
             $lead = Lead::find($request->responsestatus_id);
+             if ($request->responsestatus_val == "Intend to Buy") {
+
             $lead->update([
-                'response_status' => $request->responsestatus_val
-            ]);
+                'response_status' => $request->responsestatus_val,
+                'created_by' => auth()->user()->id,
+            ]);        
+
+            } else {
+
+                $lead->update([
+                    'response_status' => $request->responsestatus_val
+                ]);
+            }
         }
         if (isset($request->desc_id)) {
             $lead = Lead::find($request->desc_id);
