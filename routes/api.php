@@ -94,7 +94,7 @@ Route::get('properties/related', 'API\PropertyController@related')->name('proper
 Route::resource('properties', 'API\PropertyController');
 Route::resource('propertyimages', 'API\PropertyImageController');
 Route::get('propertyimages/delete/{id}', 'API\PropertyImageController@destroy')->name('propertyimages.delete');
-Route::resource('propertysocials', 'PropertySocialController');
+Route::resource('propertysocials', 'API\PropertySocialController');
 
 // --------------------------End Property Routes-------------------------------------------
 

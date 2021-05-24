@@ -45,7 +45,7 @@ class PropertySocialController extends Controller
             'clicks' => '1'
         ]);
 
-        
+
         return response()->json([
             'success'=>true
         ]);
