@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<img src="{{$image}}" alt="">
     <style>
         [type=search] {
             height: 37px !important;
@@ -160,7 +159,7 @@
         .highlight {
             /* background: #c5c3c396; */
             /* color: #26526a;
-                                                                                                                                                    text-shadow: 1px 1px 1px #030e15f7, 0 0 35px #13547ac1, 0 0 5px #13547a; */
+                                                                                                                                                                    text-shadow: 1px 1px 1px #030e15f7, 0 0 35px #13547ac1, 0 0 5px #13547a; */
             /* color: white; */
             /* background-image: linear-gradient(121deg, #13547a 1%, #07100f 250%); */
             background-image: linear-gradient(121deg, #fd090964 1%, #fd09097b 250%);
@@ -576,11 +575,11 @@
                         }
 
                         /* .fltersdiv {
-                                                                                                                                                                background: #32576d;
-                                                                                                                                                                padding-bottom: 2%;
-                                                                                                                                                                margin-bottom: 1%;
-                                                                                                                                                                border-radius: 24px 24px 32% 30%;
-                                                                                                                                                            } */
+                                                                                                                                                                                background: #32576d;
+                                                                                                                                                                                padding-bottom: 2%;
+                                                                                                                                                                                margin-bottom: 1%;
+                                                                                                                                                                                border-radius: 24px 24px 32% 30%;
+                                                                                                                                                                            } */
 
                     </style>
 
@@ -686,15 +685,15 @@
                         <div class="card-tools">
                             <div class="input-group input-group-sm">
                                 <div style="display: flex;">
-                                <div class="input-group border rounded-pill m-1 ">
-                                    <input style="background: transparent" name="keyword" id="keyword" type="text"
-                                        placeholder="Search" class="form-control bg-none border-0">
-                                    <div class="input-group-append border-0">
-                                        <button id="loader" type="button" id="button-addon3" type="button"
-                                            class="btn btn-link text-blue"><i class="fa fa-search"></i></button>
+                                    <div class="input-group border rounded-pill m-1 ">
+                                        <input style="background: transparent" name="keyword" id="keyword" type="text"
+                                            placeholder="Search" class="form-control bg-none border-0">
+                                        <div class="input-group-append border-0">
+                                            <button id="loader" type="button" id="button-addon3" type="button"
+                                                class="btn btn-link text-blue"><i class="fa fa-search"></i></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                                 <a href="{{ route('leads.import') }}"><button type="button"
                                         class="btn btn-danger rounded-pill specialbutton m-1">Import Leads</button></a>
@@ -1443,6 +1442,8 @@
             var val = $('#responsestatus' + id).val()
 
 
+
+
             $.ajax({
                 type: "POST",
                 url: "leads/ajax",
@@ -1452,7 +1453,8 @@
                 },
                 data: {
                     responsestatus_id: id,
-                    responsestatus_val: val
+                    responsestatus_val: val,
+                   
                 },
             });
 
