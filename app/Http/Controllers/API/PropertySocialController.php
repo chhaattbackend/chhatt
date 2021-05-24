@@ -39,15 +39,13 @@ class PropertySocialController extends Controller
      * @return \Illuminate\Http\Response
      */
    public function store(Request $request)
-    {   dd($request->all());
+    {
         PropertySocial::create([
             'property_id' => $request->property_id,
             'clicks' => '1'
         ]);
 
-
-
-        //
+        
         return response()->json([
             'success'=>true
         ]);
