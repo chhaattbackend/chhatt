@@ -40,19 +40,12 @@ class PropertySocialController extends Controller
      */
    public function store(Request $request)
     {
+        PropertySocial::create([
+            'property_id' => $request->property_id,
+            'clicks' => '1'
+        ]);
 
-        $validator = \Validator::make($request->all(), [
-            'property_id' => 'required',
-            'likes' => 'required',
-            'views' => 'required',
-            'clicks' => 'required',
-            'impressions' => 'required',
 
-    ]);
-    if ($validator->fails()) {
-      return $validator->errors();
-    }
-        //
         return response()->json([
             'success'=>true
         ]);
