@@ -62,6 +62,7 @@ class Property extends JsonResource
                 ], //'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
                 'user' => new User($this->user),
                 'social' => new PropertySocial($this->social),
+                'per_id' => $this->per_id,
             ];
         } else {
             return [
@@ -97,6 +98,7 @@ class Property extends JsonResource
                 'images' => PropertyImage::collection($this->images->sortBy('sort_order')),
                 'user' => new User($this->user),
                 'social' => new PropertySocial($this->social),
+                'per_id' => $this->per_id,
             ];
         }
     }
