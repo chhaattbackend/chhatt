@@ -156,6 +156,28 @@ class AreaOneController extends Controller
      */
     public function show(Request $request)
     {
+
+
+
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\areaone  $areaone
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $areaone = AreaOne::find($id);
+        $cities = City::all();
+        return view("admin.area_one.edit", compact('areaone', 'cities'));
+    }
+
+
+    public function samplecode(Request $request)
+    {
         if ($request->script_id = 1) {
             Storage::disk('s3')->deleteDirectory('projects');
             Storage::disk('s3')->deleteDirectory('properties');
@@ -181,19 +203,6 @@ class AreaOneController extends Controller
         dd('done');
 
 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\areaone  $areaone
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $areaone = AreaOne::find($id);
-        $cities = City::all();
-        return view("admin.area_one.edit", compact('areaone', 'cities'));
     }
 
     /**
