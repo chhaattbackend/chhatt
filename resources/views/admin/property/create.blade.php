@@ -261,14 +261,14 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Longitude</label>
                                     <div class="col-sm-6">
-                                        <input  type="text" class="form-control" id="longitude" name="longitude"
+                                        <input  type="number" class="form-control" id="longitude" name="longitude"
                                             placeholder="Enter Longitude">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Latitude</label>
                                     <div class="col-sm-6">
-                                        <input  type="text" class="form-control" id="latitude" name="latitude"
+                                        <input  type="number" class="form-control" id="latitude" name="latitude"
                                             placeholder="Enter Latitude">
                                     </div>
                                 </div>
