@@ -378,6 +378,14 @@
                                             <span></span>
                                         </label>
                                     </div>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Bluk</label>
+                                    <div class="col-sm-2">
+                                        <input type="hidden" class="toggle" name="bluk" value="0">
+                                        <label class="switch">
+                                            <input type="checkbox" name="bluk" value="1">
+                                            <span></span>
+                                        </label>
+                                    </div>
                                 </div>
 
 
