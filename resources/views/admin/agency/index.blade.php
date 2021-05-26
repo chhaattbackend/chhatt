@@ -227,7 +227,9 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('agencies.edit', $item->id) }}" class="float-left"><i
+                                        <a style="padding-right:10%" href="{{ route('agencies.show', $item->id ) }}" class="float-left"><i
+                                            class="fas fa-eye"></i></a>
+                                        <a style="padding-left: 10%;" href="{{ route('agencies.edit', $item->id) }}" class="float-left"><i
                                                 class="fas fa-edit"></i></a>
                                         <form action="{{ route('agencies.destroy', $item->id) }}" method="POST">
                                             @method('delete') @csrf <button class="btn btn-link pt-0"><i
