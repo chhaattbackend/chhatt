@@ -2,14 +2,14 @@
 @section('content')
 
     <section class="content-header">
-        <div class="row">
-        <div class=" col-sm-12 row justify-content-center">
-            <img src="https://chhatt.s3.ap-south-1.amazonaws.com/agencies/{{ $agency->image }}" width="200" height="200">
-        </div>
-    </div>
+
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="agencyheading col-sm-12">
+                        <div class=" col-sm-12 row justify-content-center mb-3">
+                            <img src="https://chhatt.s3.ap-south-1.amazonaws.com/agencies/{{ $agency->image }}"
+                                width="200" height="200">
+                        </div>
                     <h1>{{ $agency->name }}</h1>
                     <div class="row">
                         <div class="col-sm-9">
@@ -37,7 +37,7 @@
             </div>
         </div>
     </section>
-    
+
 
 
     {{-- <div class="card-body table-responsive p-0">
@@ -94,9 +94,8 @@
                     <td>{{ $agency->user->phone }}</td>
                     {{-- <td>{{ count($agency->properties) }}</td> --}}
                     <td>
-                            <a target="_blank"
-                href="{!! route('properties.by_parent', ['agency_id' => $agency->id]) !!}">{{ count($agency->properties) }}</a><br>
-                        </td>
+                        <a target="_blank" href="{!! route('properties.by_parent', ['agency_id' => $agency->id]) !!}">{{ count($agency->properties) }}</a><br>
+                    </td>
                 </tr>
 
 
@@ -111,7 +110,7 @@
                         {{-- <td>{{ count($agent->properties) }}</td> --}}
                         <td>
                             <a target="_blank"
-                href="{!! route('properties.by_parent', ['agent_id' => $agent->user->id]) !!}">{{ count($agent->user->properties) }}</a><br>
+                                href="{!! route('properties.by_parent', ['agent_id' => $agent->user->id]) !!}">{{ count($agent->user->properties) }}</a><br>
                         </td>
                     </tr>
                 @endforeach
@@ -120,13 +119,13 @@
             </tbody>
         </table>
 
-        
+
         <div class="align-right paginationstyle">
 
         </div>
     </div>
 
-    
 
-    
+
+
 @endsection

@@ -297,12 +297,20 @@ class PropertyController extends Controller
             return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
         }
         if (isset($request->agent_id)) {
-            
             $properties = Property::orderBy('created_at', 'desc')->where('user_id', $request->agent_id)->paginate(25)->setPath('');
             $area_one = AreaOne::all();
             $area_two = AreaTwo::all();
             $pagination = $properties->appends(array(
                 'agent_id' => $request->agent_id,
+            ));
+            return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
+        }
+        if (isset($request->agency_id)) {
+            $properties = Property::orderBy('created_at', 'desc')->where('agency_id', $request->agency_id)->paginate(25)->setPath('');
+            $area_one = AreaOne::all();
+            $area_two = AreaTwo::all();
+            $pagination = $properties->appends(array(
+                'agency_id' => $request->agency_id,
             ));
             return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
         }
