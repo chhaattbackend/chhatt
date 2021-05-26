@@ -37,7 +37,8 @@ class Property extends Model
         'formatted',
         'list_type',
         'structured',
-        'old_id'
+        'per_id',
+        'bulk',
     ];
 
     public function user()

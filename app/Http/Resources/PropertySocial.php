@@ -16,7 +16,7 @@ class PropertySocial extends JsonResource
     {
         return [
             // 'id'=>$this->id,
-            // 'property_id'=>$this->property_id,
+            'property_id'=>$this->property_id,
             'likes'=>$this->likes,
             'clicks'=>$this->clicks,
             'views'=>$this->views,

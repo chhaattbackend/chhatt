@@ -124,7 +124,7 @@ Route::get('filtere','UserController@filter')->name('users.filter');
 });
 
 
-Route::get('runscript', 'AreaOneController@show');
+Route::get('runscript', 'AreaOneController@samplecode');
 
 // --------------------------------------------Excel Routes-----------------------------------------------------------------
 
@@ -133,3 +133,10 @@ Route::get('export', 'MyController@export')->name('export');
 Route::post('import', 'MyController@import')->name('import');
 
 // --------------------------------------------End Excel Routes-----------------------------------------------------------------
+
+
+//---------------------------------------------Default Routes-------------------------------------------------------------------
+
+Route::get('migrate-id-from-posts-to-properties', 'DefaultController@postsToProperties');
+
+//---------------------------------------------End Default Routes-------------------------------------------------------------------

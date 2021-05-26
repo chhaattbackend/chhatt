@@ -33,6 +33,7 @@ Route::put('payments/update', 'API\PaymentController@update');
 Route::put('properties/update', 'API\PropertyController@update');
 Route::put('users/profileupdate', 'API\UserController@profileupdate');
 Route::post('users/profileimageupdate', 'API\UserController@profileimageupdate');
+Route::put('projects/update', 'API\ProjectController@update');
 
 
 // -------------------------------------------------End Custom Update Routes-----------------------------------------------------------
@@ -81,6 +82,7 @@ Route::resource('projectsales', 'API\ProjectSaleController');
 Route::resource('projectsalesinstallments', 'API\ProjectSaleInstallmentController');
 Route::resource('projects', 'API\ProjectController');
 
+
 // ---------------------------End Project Routes-----------------------------------------
 
 
@@ -94,7 +96,7 @@ Route::get('properties/related', 'API\PropertyController@related')->name('proper
 Route::resource('properties', 'API\PropertyController');
 Route::resource('propertyimages', 'API\PropertyImageController');
 Route::get('propertyimages/delete/{id}', 'API\PropertyImageController@destroy')->name('propertyimages.delete');
-Route::resource('propertysocials', 'PropertySocialController');
+Route::resource('propertysocials', 'API\PropertySocialController');
 
 // --------------------------End Property Routes-------------------------------------------
 
