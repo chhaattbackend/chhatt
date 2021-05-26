@@ -192,7 +192,8 @@
                             <th>Price</th>
                             <th>Size</th>
                             {{-- <th>Size Type</th> --}}
-                            <th>Type</th>
+                            <th>Area Type</th>
+                            <th>Property Type</th>
                             <th>Bed</th>
                             <th>Bath</th>
                             <th>images</th>
@@ -227,6 +228,7 @@
                                 <td>{{ $item->size }} {{ $item->size_type }}</td>
                                 {{-- <td></td> --}}
                                 <td>{{ $item->type }}</td>
+                                <td>{{ $item->property_type }}</td>
                                 <td>{{ $item->bed }}</td>
                                 <td>{{ $item->bath }}</td>
                                 <td>{{ count($item->images) }}</td>

@@ -8,6 +8,8 @@ use App\AreaThree;
 use App\AreaTwo;
 use App\GlobalClass;
 use App\User;
+use App\Agent;
+use App\Property;
 use Illuminate\Http\Request;
 
 class AgencyController extends Controller
@@ -99,7 +101,23 @@ class AgencyController extends Controller
      */
     public function show(Agency $agency)
     {
-        //
+        $realtors = [];
+        $count = 0;
+        $agents = Agent::where('agency_id', $agency->id)->get();
+        $properties = 0;
+        
+        foreach($agents as $agent) {
+            $realtors[$count]['id'] = $agent->id;
+            $realtors[$count]['user'] = $agent->user->name;
+            $realtors[$count]['area'] = $agent->agency->areaOne->name . ' - ' . $agent->agency->areaTwo->name;
+            $realtors[$count]['contact'] = $agent->user->phone;
+            $agent_proerties = Property::where('user_id', $agent->id)->get();
+            $realtors[$count]['properties'] = count($agent_proerties);
+            $properties += count($agent_proerties);
+            $count++;
+        }
+
+        return view("admin.agency.show", compact(['agency', 'realtors', 'properties']));
     }
 
     /**
