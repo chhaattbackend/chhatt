@@ -14,6 +14,7 @@ use App\PropertyImage;
 use App\PropertyType;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
@@ -47,43 +48,74 @@ class PropertyController extends Controller
     public function index(Request $request)
     {
 
-        if (!$request->keyword) {
+        // if (!$request->keyword) {
 
-            $properties = Property::orderBy('created_at', 'desc')->paginate(25);
-        } else {
+        //     $properties = Property::orderBy('created_at', 'desc')->paginate(25);
+        // } else {
 
-            $seacrh = $request->keyword;
-            $properties = Property::where('id', '!=', null)->orderBy('created_at', 'desc');
+        //     $seacrh = $request->keyword;
+        //     $properties = Property::where('id', '!=', null)->orderBy('created_at', 'desc');
 
-            $properties = $properties->whereHas('user', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('user', function ($query) use ($seacrh) {
-                $query->whereHas('agent', function ($query) use ($seacrh) {
-                    $query->whereHas('agency', function ($query) use ($seacrh) {
-                        $query->where('name', 'like', '%' . $seacrh . '%');
-                    });
-                });
-            })->orWhereHas('areaOne', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('areaThree', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhere('name', 'like', '%' . $seacrh . '%')
-                ->orWhere('type', 'like', '%' . $seacrh . '%')
-                ->orWhere('id',$seacrh)
-                ->orWhere('description', 'like', '%' . $seacrh . '%')
-                ->paginate(25)->setPath('');
+        //     $properties = $properties->whereHas('user', function ($query) use ($seacrh) {
+        //         $query->where('name', 'like', '%' . $seacrh . '%');
+        //     })->orWhereHas('user', function ($query) use ($seacrh) {
+        //         $query->whereHas('agent', function ($query) use ($seacrh) {
+        //             $query->whereHas('agency', function ($query) use ($seacrh) {
+        //                 $query->where('name', 'like', '%' . $seacrh . '%');
+        //             });
+        //         });
+        //     })->orWhereHas('areaOne', function ($query) use ($seacrh) {
+        //         $query->where('name', 'like', '%' . $seacrh . '%');
+        //     })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
+        //         $query->where('name', 'like', '%' . $seacrh . '%');
+        //     })->orWhereHas('areaThree', function ($query) use ($seacrh) {
+        //         $query->where('name', 'like', '%' . $seacrh . '%');
+        //     })->orWhere('name', 'like', '%' . $seacrh . '%')
+        //         ->orWhere('type', 'like', '%' . $seacrh . '%')
+        //         ->orWhere('id',$seacrh)
+        //         ->orWhere('description', 'like', '%' . $seacrh . '%')
+        //         ->paginate(25)->setPath('');
 
-            $pagination = $properties->appends(array(
-                'keyword' => $request->keyword
-            ));
+        //     $pagination = $properties->appends(array(
+        //         'keyword' => $request->keyword
+        //     ));
+        // }
+        
+        // $area_one = AreaOne::all();
+        // $area_two = AreaTwo::all();
+
+        // return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
+
+        $a = array();
+        $chatprop = DB::table('posts')->get();
+        foreach ($chatprop as $property) {
+            
+                $array = explode(',', $property->latlng);
+
+
+            $pro=Property::where('address' , 'like', '%' . $property->address . '%')->where('latitude',$array[0])->where('longitude',$array[1])->where('property_type',$property->p_type)->first();
+            ;
+            if ($pro != null) {
+                $name=optional($pro->user)->name;
+
+                // dd($name);
+                // dd($property->user_name);
+                if($property->user_name==$name){
+                    // dd($property->id);
+    
+                    $pro->update([
+                        'old_id'=> $property->id
+                    ]);
+                }
+            } else {
+        array_push($a, $property->id);
+
+            }
         }
 
-        $area_one = AreaOne::all();
-        $area_two = AreaTwo::all();
+        
+        dd($a);
 
-        return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
     }
 
     /**

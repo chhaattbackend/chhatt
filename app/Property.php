@@ -36,7 +36,8 @@ class Property extends Model
         'status',
         'formatted',
         'list_type',
-        'structured'
+        'structured',
+        'old_id'
     ];
 
     public function user()
