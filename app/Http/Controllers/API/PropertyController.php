@@ -38,6 +38,7 @@ class PropertyController extends Controller
 
     public function search(Request $request)
     {
+
         if (isset($request->nearby)) {
             $radius = 10;
             $properties = Property::select(DB::raw('*,( 3959 * acos( cos( radians(' . $request->latitude . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $request->longitude . ') ) + sin( radians(' . $request->latitude . ') ) * sin( radians(latitude) ) ) ) AS distance'))->paginate(25);
@@ -149,6 +150,7 @@ class PropertyController extends Controller
             $pagination_array = $this->array_push_assoc($pagination_array, 'user_id', $request->user_id);
         }
         if (isset($request->search)) {
+
             $search = $request->search;
             $properties = $properties->where('bed','like','%'.$request->search.'%')
             ->orWhere('address','like','%'.$request->search.'%')
@@ -169,12 +171,20 @@ class PropertyController extends Controller
 
             $pagination_array = $this->array_push_assoc($pagination_array, 'search', $request->search);
         }
+        if(!$request->search){
+
+            $properties = $properties->where('formatted',1)->paginate(25);
+            return new PropertyCollection($properties);
+        }
         if (isset($request->all)) {
+
             $properties = $properties->orderBy('created_at', 'desc')->get();
             return new PropertyShortCollection($properties);
+
         }
         if (isset($request->formatted)) {
             // dd($request->formatted);
+
             $properties = $properties->where('formatted', $request->formatted)->paginate(25);
             return new PropertyCollection($properties);
         }
