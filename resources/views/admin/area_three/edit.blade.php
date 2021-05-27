@@ -55,6 +55,22 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Latitude</label>
+                                    <div class="col-sm-6">
+                                        <input required type="text" name="latitude" class="form-control">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Longitude</label>
+                                    <div class="col-sm-6">
+                                        <input required type="text" name="longitude" class="form-control">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-10">
                                         <button type="submit" class="btn btn-info">Submit</button>
                                     </div>
