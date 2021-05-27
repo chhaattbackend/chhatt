@@ -38,7 +38,6 @@ class PropertyController extends Controller
 
     public function search(Request $request)
     {
-
         if (isset($request->nearby)) {
             $radius = 10;
             $properties = Property::select(DB::raw('*,( 3959 * acos( cos( radians(' . $request->latitude . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $request->longitude . ') ) + sin( radians(' . $request->latitude . ') ) * sin( radians(latitude) ) ) ) AS distance'))->paginate(25);
@@ -198,7 +197,7 @@ class PropertyController extends Controller
         //         'formatted' => new PropertyCollection($properties1),
         //     ]);
         // }
-        $properties = $properties->orderBy('created_at', 'desc')->paginate(28)->setPath('');
+        $properties = $properties->orderBy('created_at', 'desc')->paginate($request->propertyCount)->setPath('');
         $properties->sortBy('priority');
         $pagination = $properties->appends($pagination_array);
         // dd($properties);

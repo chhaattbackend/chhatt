@@ -44,6 +44,14 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Lat Long</label>
+                                    <div class="col-sm-6">
+                                        <input required type="text" name="latlong" class="form-control">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-10">
                                         <button type="submit" class="btn btn-info">Submit</button>
                                     </div>
