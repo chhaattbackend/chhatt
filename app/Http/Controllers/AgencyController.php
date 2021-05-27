@@ -99,7 +99,7 @@ class AgencyController extends Controller
      */
     public function show(Agency $agency)
     {
-        //
+        return view("admin.agency.show");
     }
 
     /**
