@@ -132,6 +132,28 @@
     padding-left: 5%;
 }
 
+.agencyheading {
+    /* background-image: linear-gradient(121deg, #13547a 1%, #80d0c7 250%); */
+    border-color: #ef772100 !important;
+    padding: 15px;
+    border-radius: 15px;
+   box-shadow:
+   inset 0 0 50px #fff,      /* inner white */
+   inset 20px 0 80px #fff,   /* inner left magenta short */
+   inset -20px 0 80px #fff,  /* inner right cyan short */
+   inset 20px 0 300px #fff,  /* inner left magenta broad */
+   inset -20px 0 300px #fff, /* inner right cyan broad */
+   0 0 2px #13547a,            /* outer white */
+   0px 0 10px #13547a,        /* outer left magenta */
+   0px 0 10px #13547a;
+   color: #000;
+}
+
+.agencyheading h1 {
+    text-align: center;
+    color: black;
+}
+
 .btn-primary,
 .card-info .card-header,
 .btn-info {

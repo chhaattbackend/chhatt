@@ -88,14 +88,17 @@
                                     </div>
 
                                 </div>
+
+                                
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
+                                    
                                     <div class="col-sm-6">
                                         <input type='file' name="image" onchange="readURL(this);" />
-                                        @if ($user->image == null)
+                                        @if ($user->thumbnail == null)
                                         <img id="blah" src="#" />
                                         @else
-                                        <img id="blah" width="10%" src="https://chhatt.s3.ap-south-1.amazonaws.com/users/{{$item->image}}" />
+                                        <img id="blah" width="100%" height="150px" src="https://chhatt.s3.ap-south-1.amazonaws.com/users/{{$user->thumbnail}}" />
                                         @endif
                                     </div>
                                 </div> 

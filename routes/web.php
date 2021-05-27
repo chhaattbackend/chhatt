@@ -124,7 +124,7 @@ Route::get('filtere','UserController@filter')->name('users.filter');
 });
 
 
-Route::get('runscript', 'AreaOneController@show');
+Route::get('runscript', 'AreaOneController@samplecode');
 
 // --------------------------------------------Excel Routes-----------------------------------------------------------------
 

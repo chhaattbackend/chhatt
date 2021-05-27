@@ -262,14 +262,14 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Longitude</label>
                                     <div class="col-sm-6">
                                         <input  type="number" class="form-control" id="longitude" name="longitude"
-                                            placeholder="Enter Longitude">
+                                            placeholder="Enter Longitude" step="any">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Latitude</label>
                                     <div class="col-sm-6">
                                         <input  type="number" class="form-control" id="latitude" name="latitude"
-                                            placeholder="Enter Latitude">
+                                            placeholder="Enter Latitude" step="any">
                                     </div>
                                 </div>
 
@@ -375,6 +375,14 @@
                                         <input type="hidden" class="toggle" name="structured" value="0">
                                         <label class="switch">
                                             <input type="checkbox" name="advertised" value="1">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Bluk</label>
+                                    <div class="col-sm-2">
+                                        <input type="hidden" class="toggle" name="bluk" value="0">
+                                        <label class="switch">
+                                            <input type="checkbox" name="bluk" value="1">
                                             <span></span>
                                         </label>
                                     </div>

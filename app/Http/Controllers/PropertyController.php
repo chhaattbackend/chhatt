@@ -14,6 +14,7 @@ use App\PropertyImage;
 use App\PropertyType;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
@@ -79,11 +80,42 @@ class PropertyController extends Controller
                 'keyword' => $request->keyword
             ));
         }
-
+        
         $area_one = AreaOne::all();
         $area_two = AreaTwo::all();
 
         return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
+
+        // $a = array();
+        // $chatprop = DB::table('posts')->get();
+        // foreach ($chatprop as $property) {
+            
+        //         $array = explode(',', $property->latlng);
+
+
+        //     $pro=Property::where('address' , 'like', '%' . $property->address . '%')->where('latitude',$array[0])->where('longitude',$array[1])->where('property_type',$property->p_type)->first();
+        //     ;
+        //     if ($pro != null) {
+        //         $name=optional($pro->user)->name;
+
+        //         // dd($name);
+        //         // dd($property->user_name);
+        //         if($property->user_name==$name){
+        //             // dd($property->id);
+    
+        //             $pro->update([
+        //                 'old_id'=> $property->id
+        //             ]);
+        //         }
+        //     } else {
+        // array_push($a, $property->id);
+
+        //     }
+        // }
+
+        
+        // dd($a);
+
     }
 
     /**
@@ -261,6 +293,24 @@ class PropertyController extends Controller
             $area_two = AreaTwo::all();
             $pagination = $properties->appends(array(
                 'area_two' => $request->area_two,
+            ));
+            return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
+        }
+        if (isset($request->agent_id)) {
+            $properties = Property::orderBy('created_at', 'desc')->where('user_id', $request->agent_id)->paginate(25)->setPath('');
+            $area_one = AreaOne::all();
+            $area_two = AreaTwo::all();
+            $pagination = $properties->appends(array(
+                'agent_id' => $request->agent_id,
+            ));
+            return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
+        }
+        if (isset($request->agency_id)) {
+            $properties = Property::orderBy('created_at', 'desc')->where('agency_id', $request->agency_id)->paginate(25)->setPath('');
+            $area_one = AreaOne::all();
+            $area_two = AreaTwo::all();
+            $pagination = $properties->appends(array(
+                'agency_id' => $request->agency_id,
             ));
             return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
         }
