@@ -184,8 +184,8 @@ class PropertyController extends Controller
         if (isset($request->formatted)) {
             // dd($request->formatted);
 
-            $properties = $properties->where('formatted', $request->formatted)->paginate(28);
-            return new PropertyCollection($properties);
+            $properties = $properties->where('formatted', $request->formatted);
+            $pagination_array = $this->array_push_assoc($pagination_array, 'formatted', $request->formatted);
         }
         // if (isset($request->formatted)) {
         //     // dd($request->formatted);
