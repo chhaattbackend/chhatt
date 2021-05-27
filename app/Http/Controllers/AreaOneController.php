@@ -130,7 +130,7 @@ class AreaOneController extends Controller
         if ($request->script_id == 4) {
             User::where('id','!=',null)->update(['role_id'=>20]);
             LeadProject::where('id','!=',null)->update(['project_id'=>7]);
-            User::where('id','!=',null)->increment('id');
+            User::where('id','!=',null)->decrement('id');
 
         }
         dd('done');
