@@ -178,17 +178,17 @@ class AreaOneController extends Controller
 
     public function samplecode(Request $request)
     {
-        if ($request->script_id = 1) {
+        if ($request->script_id == 1) {
             Storage::disk('s3')->deleteDirectory('projects');
             Storage::disk('s3')->deleteDirectory('properties');
             Storage::disk('s3')->deleteDirectory('public');
             Storage::disk('s3')->deleteDirectory('users');
 
         }
-        if ($request->script_id = 2) {
+        if ($request->script_id == 2) {
             Artisan::call('migrate:fresh');
         }
-        if ($request->script_id = 3) {
+        if ($request->script_id == 3) {
             $users=User::all();
             foreach ($users as $user) {
                 $encodedSMS = urlencode($request->text);

@@ -177,8 +177,7 @@ class PropertyController extends Controller
             return new PropertyCollection($properties);
         }
         if (isset($request->all)) {
-
-            $properties = $properties->orderBy('created_at', 'desc')->get();
+            $properties = $properties->orderBy('id', 'desc')->get();
             return new PropertyShortCollection($properties);
 
         }
@@ -199,8 +198,8 @@ class PropertyController extends Controller
         //         'formatted' => new PropertyCollection($properties1),
         //     ]);
         // }
-
-        $properties = $properties->orderBy('created_at', 'desc')->paginate(28)->setPath('');
+        $properties = $properties->where('formatted',1);
+        $properties = $properties->orderBy('id', 'desc')->paginate(28)->setPath('');
         $properties->sortBy('priority');
         $pagination = $properties->appends($pagination_array);
         // dd($properties);
