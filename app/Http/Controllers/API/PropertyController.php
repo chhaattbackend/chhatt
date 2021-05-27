@@ -189,7 +189,7 @@ class PropertyController extends Controller
         //         'formatted' => new PropertyCollection($properties1),
         //     ]);
         // }
-
+        $properties = $properties->where('formatted',1);
         $properties = $properties->orderBy('id', 'desc')->paginate(28)->setPath('');
         $properties->sortBy('priority');
         $pagination = $properties->appends($pagination_array);
