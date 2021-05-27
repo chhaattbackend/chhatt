@@ -124,7 +124,7 @@ class GlobalClass extends Model
 
             $destinationPath = 'public/';
             $originalFile = $file->getClientOriginalName();
-            $filename=strtotime(date('Y-m-d-H:isa')).$originalFile;
+            $filename1=strtotime(date('Y-m-d-H:isa')).$originalFile;
             $file->move($destinationPath, $filename);
 
             PropertyImage::create([
