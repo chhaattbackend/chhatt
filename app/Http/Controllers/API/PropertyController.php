@@ -173,7 +173,7 @@ class PropertyController extends Controller
         }
         if(!$request->search){
 
-            $properties = $properties->where('formatted',1)->paginate(25);
+            $properties = $properties->where('formatted',1)->paginate(28);
             return new PropertyCollection($properties);
         }
         if (isset($request->all)) {
