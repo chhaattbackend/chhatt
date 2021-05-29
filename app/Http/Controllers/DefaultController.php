@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Property;
+use App\User;
 use DB;
 
 class DefaultController extends Controller
@@ -53,5 +54,14 @@ class DefaultController extends Controller
 
 
         dd($a);
+    }
+
+    //     public function number(){
+    // $users = User::all();
+    // foreach ($users['phone'] as $index => $value) {
+    //     $users['phone'][$index] = Str::replaceFirst('0','1',$value);
+    // }
+
+
     }
 }
