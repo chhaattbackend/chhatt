@@ -62,7 +62,7 @@ class DefaultController extends Controller
 
         foreach($users as $user) {
             $str = $user->phone;
-            if ($str[0] == 3) {
+            if (isset($str[0]) && $str[0] == 3) {
                 $u = User::find($user->id);
                 $u->phone = '92' . $u->phone;
                 $u->save();
