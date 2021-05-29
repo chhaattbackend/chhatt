@@ -66,7 +66,7 @@ class DefaultController extends Controller
                 $u = User::find($user->id);
                 $u->phone = '92' . $u->phone;
                 $u->save();
-            } elseif ($str[0] == 0) {
+            } elseif (isset($str[0]) && $str[0] == 0) {
                 $arr1 = explode("0",$user->phone);
                 $u = User::find($user->id);
                 if (isset($arr1[1])) {
