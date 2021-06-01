@@ -13,6 +13,8 @@ use App\PropertyFor;
 use App\PropertyImage;
 use App\PropertyType;
 use App\User;
+use App\SocialType;
+use App\PropertyGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -80,7 +82,7 @@ class PropertyController extends Controller
                 'keyword' => $request->keyword
             ));
         }
-        
+
         $area_one = AreaOne::all();
         $area_two = AreaTwo::all();
 
@@ -89,7 +91,7 @@ class PropertyController extends Controller
         // $a = array();
         // $chatprop = DB::table('posts')->get();
         // foreach ($chatprop as $property) {
-            
+
         //         $array = explode(',', $property->latlng);
 
 
@@ -102,7 +104,7 @@ class PropertyController extends Controller
         //         // dd($property->user_name);
         //         if($property->user_name==$name){
         //             // dd($property->id);
-    
+
         //             $pro->update([
         //                 'old_id'=> $property->id
         //             ]);
@@ -113,7 +115,7 @@ class PropertyController extends Controller
         //     }
         // }
 
-        
+
         // dd($a);
 
     }
@@ -132,7 +134,9 @@ class PropertyController extends Controller
         $area_three = AreaThree::all();
         $propertyfor = PropertyFor::all();
         $propertytype = PropertyType::all();
-        return view('admin.property.create', compact(['users','city', 'area_one', 'area_two', 'area_three', 'propertyfor', 'propertytype']));
+        $propertySocialTypes = SocialType::all();
+        $propertySocialGroups = PropertyGroup::all();
+        return view('admin.property.create', compact(['users','city', 'area_one', 'area_two', 'area_three', 'propertyfor', 'propertytype', 'propertySocialTypes', 'propertySocialGroups']));
     }
 
     /**
@@ -188,11 +192,12 @@ class PropertyController extends Controller
         $area_three = AreaThree::all();
         $propertyfor = PropertyFor::all();
         $propertytype = PropertyType::all();
-
+        $propertySocialTypes = SocialType::all();
+        $propertySocialGroups = PropertyGroup::all();
         $city = City::all();
         $link = url()->previous();
 
-       return view('admin.property.edit', compact(['city','property', 'users', 'area_one', 'area_two', 'area_three', 'propertyfor','link','propertytype']));
+       return view('admin.property.edit', compact(['city','property', 'users', 'area_one', 'area_two', 'area_three', 'propertyfor','link','propertytype','propertySocialTypes', 'propertySocialGroups']));
     }
 
     /**
@@ -240,7 +245,7 @@ class PropertyController extends Controller
     }
     public function filter(Request $request)
     {
-       
+
 
         $properties = Property::orderBy('created_at', 'desc')->paginate(25);
         $area_one = AreaOne::all();

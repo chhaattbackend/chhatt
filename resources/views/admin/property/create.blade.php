@@ -318,11 +318,41 @@
                                             @foreach ($propertytype as $item)
 
 
-                                            <option value="{{$item->name}}">{{$item->name}}</option>
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
+
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Property Social Type</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control" name="social_type_id" id="social_type_id">
+                                            <option disabled selected value="">Select Type</option>
+                                            @foreach ($propertySocialTypes as $propertySocialType)
+
+
+                                            <option value="{{$propertySocialType->id}}">{{$propertySocialType->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Property Social Group</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control" name="group_id" id="group_id">
+                                            <option disabled selected value="">Select Group</option>
+                                            @foreach ($propertySocialGroups as $propertySocialGroup)
+
+
+                                            <option value="{{$propertySocialGroup->name}}">{{$propertySocialGroup->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">No. Bed</label>
                                     <div class="col-sm-6">
