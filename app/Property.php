@@ -39,6 +39,8 @@ class Property extends Model
         'structured',
         'per_id',
         'bulk',
+        'social_type_id',
+        'group_id',
     ];
 
     public function user()

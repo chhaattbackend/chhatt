@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('parent/{id}', 'AgencyController@getParent')->name('parent');
     Route::get('categories/{id}', 'AgencyController@getSubCategory')->name('categories');
     Route::get('subcategories/{id}', 'AgencyController@getSubSubCategory')->name('subcategories');
+    Route::get('groups/{id}', 'PropertyGroupController@getgroups')->name('groups');
 
     Route::post('leads/ajax', 'LeadController@ajax');
     Route::post('leads/ajaxSearch', 'LeadController@ajaxSearch');

@@ -90,4 +90,10 @@ class PropertyGroupController extends Controller
         $item->delete();
         return redirect()->back();
     }
+
+    public function getgroups($id)
+    {
+        $groups = PropertyGroup::find($id);
+        return response()->json(['data' => $groups]);
+    }
 }
