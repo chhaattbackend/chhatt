@@ -877,6 +877,31 @@
             </ul>
         </li>
 
+
+        <li class="nav-item has-treeview @if(url()->current()==route('propertygroups.index') || url()->current()==route('propertygroups.create')) menu-open @endif">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                    Property Social Group
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('propertygroups.index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon @if(url()->current()==route('propertygroups.index')) far fa-dot-circle red @endif"></i>
+                        <p>list</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('propertygroups.create') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon @if(url()->current()==route('propertygroups.create')) far fa-dot-circle red @endif"></i>
+                        <p>Create</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         @endif
 
     </ul>
