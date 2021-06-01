@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Property;
 use DB;
+use App\User;
 
 class DefaultController extends Controller
 {
@@ -53,5 +54,27 @@ class DefaultController extends Controller
 
 
         dd($a);
+    }
+
+
+    public function setNumbers(){
+        $users = User::all();
+
+        foreach($users as $user) {
+            $str = $user->phone;
+            if (isset($str[0]) && $str[0] == 3) {
+                $u = User::find($user->id);
+                $u->phone = '92' . $u->phone;
+                $u->save();
+            } elseif (isset($str[0]) && $str[0] == 0) {
+                $arr1 = explode("0",$user->phone);
+                $u = User::find($user->id);
+                if (isset($arr1[1])) {
+                    $u->phone = '92' . $arr1[1];
+                $u->save();
+                }
+                
+            } 
+        }
     }
 }

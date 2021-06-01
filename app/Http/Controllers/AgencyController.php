@@ -8,6 +8,8 @@ use App\AreaThree;
 use App\AreaTwo;
 use App\GlobalClass;
 use App\User;
+use App\Agent;
+use App\Property;
 use Illuminate\Http\Request;
 
 class AgencyController extends Controller
@@ -99,7 +101,18 @@ class AgencyController extends Controller
      */
     public function show(Agency $agency)
     {
-        return view("admin.agency.show");
+        $agents = Agent::where('agency_id', $agency->id)->get();
+        $agentproperties = 0;
+        
+        foreach($agents as $agent) {
+            $agentproperties += count($agent->properties);  
+
+        }
+        $agencyproperties=$agency->properties->count();
+        $totalproperties= $agencyproperties+$agentproperties;
+
+
+        return view("admin.agency.show", compact(['agency','agents','totalproperties']));
     }
 
     /**

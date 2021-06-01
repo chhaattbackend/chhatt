@@ -25,7 +25,7 @@ class UserController extends Controller
         $this->globalclass = new GlobalClass;
     }
 
-    
+
     public function index(Request $request)
     {
 
@@ -74,6 +74,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'phone' => 'regex:/(92)[0-9]{9}/',
+            'mobile' => 'regex:/(92)[0-9]{9}/',
+            ]);
+
         if ($request->hasFile('image')) {
             $filename = $this->globalclass->storeS3($request->file('image'), 'users');
             User::create($request->except('password','image','dp')+['password' => Hash::make($request->password),'type'=>'property','image' => $filename,'dp' => $filename, 'thumbnail' => $filename]);
@@ -81,7 +86,7 @@ class UserController extends Controller
         else{
             User::create($request->except('password')+['password' => Hash::make($request->password),'type'=>'property']);
         }
-        
+
         return redirect()->route('users.index');
     }
 
@@ -137,9 +142,10 @@ class UserController extends Controller
      * @param  \App\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(user $user)
+    public function destroy($id)
     {
-        // $user->delete();
+        $item = User::find($id);
+        $item->delete();
         return redirect()->back();
     }
 

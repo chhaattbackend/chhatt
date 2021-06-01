@@ -14,54 +14,56 @@
                 <!-- Horizontal Form -->
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Add Area Two</h3>
+                        <h3 class="card-title">Add Property Social Group</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <div class="col-md-8">
-                        <form action="{{ route('areatwos.update',$areatwo->id) }}" method="POST" class="form-horizontal"
+                        <form action="{{ route('propertygroups.store') }}" method="POST" class="form-horizontal"
                             enctype="multipart/form-data">
                             @csrf
-                            @method('put')
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Area One</label>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Social Type</label>
                                     <div class="col-sm-6">
-                                     <select required class="form-control" name="area_one_id" id="area_one_id">
-                                        @foreach ($areaones as $item)
-                                        <option @if($item->id==$areatwo->area_one_id) selected @endif value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
-                                    </select>
+                                        <select required name="social_type" id="social_type" class="form-control">
+                                            <option disabled selected value=""></option>
+                                            @foreach($socialTypes as $socialType)
+                                                <option value="{{ $socialType->id }}">{{ $socialType->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="name" class="form-control" value="{{$areatwo->name}}">
+                                        <input required type="text" class="form-control" id="name" name="name"
+                                            placeholder="Enter Name">
                                     </div>
-
                                 </div>
-
                                 <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Lat Long</label>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Link</label>
                                     <div class="col-sm-6">
-                                        <input required type="text" name="latlong" class="form-control">
+                                        <input required type="text" class="form-control" id="link" name="link"
+                                            placeholder="Enter Link">
                                     </div>
-
                                 </div>
-
                                 <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-10">
-                                        <button type="submit" class="btn btn-info">Submit</button>
+                                        {{-- <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                                            <label class="form-check-label" for="exampleCheck2">Remember me</label>
+                                        </div> --}}
+                                        <button  type="submit" class="btn btn-info col-sm-7 rounded-bill rounded-pill">Submit</button>
                                     </div>
                                 </div>
                             </div>
-                            <!-- /.card-body -->
-                            {{-- <div class="card-footer">
+                             <!-- /.card-body -->
+                             {{-- <div class="card-footer">
                                 <button type="submit" class="btn btn-default float-right">Cancel</button>
                             </div>
                             <!-- /.card-footer --> --}}
+                            </div>
                         </form>
                     </div>
                 </div>

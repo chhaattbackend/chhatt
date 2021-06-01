@@ -76,6 +76,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('responsestatus', 'ResponseStatusController');
     Route::resource('callstatus', 'CallstatusController');
     Route::resource('propertytypes', 'PropertyTypeController');
+    Route::resource('socialtypes', 'SocialTypeController');
+    Route::resource('propertygroups', 'PropertyGroupController');
 
     //-------------------Extra Features--------------------------------
 
@@ -138,5 +140,6 @@ Route::post('import', 'MyController@import')->name('import');
 //---------------------------------------------Default Routes-------------------------------------------------------------------
 
 Route::get('migrate-id-from-posts-to-properties', 'DefaultController@postsToProperties');
+Route::get('contact-set', 'DefaultController@setNumbers');
 
 //---------------------------------------------End Default Routes-------------------------------------------------------------------

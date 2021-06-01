@@ -338,6 +338,25 @@
                                             <span></span>
                                         </label>
                                     </div>
+
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Bluk Property</label>
+                                    <div class="col-sm-2">
+                                        <input type="hidden" class="toggle" name="bluk" value="0">
+                                        <label class="switch">
+                                            <input @if ($property->bluk == '1') checked @endif type="checkbox" name="bluk"
+                                                value="1">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Status</label>
+                                    <div class="col-sm-2">
+                                        <input type="hidden" class="toggle" name="status" value="0">
+                                        <label class="switch">
+                                            <input @if ($property->status == '1') checked @endif type="checkbox" name="status"
+                                                value="1">
+                                            <span></span>
+                                        </label>
+                                    </div>
                                 </div>
 
 

@@ -44,6 +44,13 @@
 
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="email" class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
                                     <label for="password" class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-6">
                                         <input required type="password" name="password" class="form-control">
@@ -51,18 +58,12 @@
 
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-6">
-                                        <input required type="text" name="email" class="form-control">
-                                    </div>
 
-                                </div>
 
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Phone</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" name="phone" class="form-control">
+                                        <input required type="number" name="phone" class="form-control @error('phone') is-invalid @enderror" value="92">
                                     </div>
 
                                 </div>
@@ -71,7 +72,7 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Mobile</label>
                                     <div class="col-sm-6">
                                         <input required type="number" name="mobile"
-                                            class="form-control">
+                                            class="form-control @error('mobile') is-invalid @enderror" value="92">
                                     </div>
                                 </div>
 
@@ -103,7 +104,7 @@
                                         <img id="blah" src="#" />
                                     </div>
 
-                                </div> 
+                                </div>
 
                                 <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-10">
