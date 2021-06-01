@@ -46,7 +46,7 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-6">
-                                        <input required type="text" name="email" class="form-control">
+                                        <input type="text" name="email" class="form-control">
                                     </div>
 
                                 </div>

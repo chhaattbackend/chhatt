@@ -50,7 +50,7 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-6">
-                                        <input type="email" value="{{ $user->email }}" required type="text" name="email"
+                                        <input type="email" value="{{ $user->email }}" type="text" name="email"
                                             class="form-control">
                                     </div>
 
