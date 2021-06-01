@@ -76,6 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('responsestatus', 'ResponseStatusController');
     Route::resource('callstatus', 'CallstatusController');
     Route::resource('propertytypes', 'PropertyTypeController');
+    Route::resource('socialtypes', 'SocialTypeController');
 
     //-------------------Extra Features--------------------------------
 

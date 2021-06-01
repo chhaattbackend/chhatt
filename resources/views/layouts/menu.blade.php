@@ -853,6 +853,30 @@
             </ul>
         </li>
 
+        <li class="nav-item has-treeview @if(url()->current()==route('socialtypes.index') || url()->current()==route('socialtypes.create')) menu-open @endif">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                    Social Type
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('socialtypes.index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon @if(url()->current()==route('socialtypes.index')) far fa-dot-circle red @endif"></i>
+                        <p>list</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('socialtypes.create') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon @if(url()->current()==route('socialtypes.create')) far fa-dot-circle red @endif"></i>
+                        <p>Create</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         @endif
 
     </ul>
