@@ -93,7 +93,7 @@ class PropertyGroupController extends Controller
 
     public function getgroups($id)
     {
-        $groups = PropertyGroup::find($id);
+        $groups = PropertyGroup::where('social_type',$id)->get();
         return response()->json(['data' => $groups]);
     }
 }

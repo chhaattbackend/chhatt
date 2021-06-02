@@ -72,7 +72,7 @@ class LeadController extends Controller
             ]);
 
 
-        $data = array(
+            $data = array(
             "name" => $request->name,
             "email" => $request->email,
             "phone" => $request->phone,
@@ -87,13 +87,13 @@ class LeadController extends Controller
             // "property_type" => $request->nproperty_typeame,
             // "added_by" => auth()->user()->name,
 
-        );
-        $user=User::where('id',$request->user_id)->first();
-        $globalclass=new GlobalClass;
-        $globalclass->sendLeadSms($lead->name,$lead->email,$lead->phone,$request->message,optional($lead->areaOne)->name,$lead->budget,$lead->lead_type,$lead->family_members,$lead->property_type,$user->phone,$request->link,'web');
-    }
+            );
+            $user=User::where('id',$request->user_id)->first();
+            $globalclass=new GlobalClass;
+            $globalclass->sendLeadSms($lead->name,$lead->email,$lead->phone,$request->message,optional($lead->areaOne)->name,$lead->budget,$lead->lead_type,$lead->family_members,$lead->property_type,$user->phone,$request->link,'web');
+            Mail::to('muddasirali99@gmail.com')->send(new MailMail($data));
+        }
 
-        // Mail::to('muddasirali99@gmail.com')->send(new MailMail($data));
         return response()->json([
             'success' => true,
             'data'=>$request->all(),
