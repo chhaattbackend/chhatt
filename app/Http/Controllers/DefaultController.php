@@ -8,6 +8,7 @@ use App\Property;
 use App\User;
 use DB;
 
+
 class DefaultController extends Controller
 {
     public function postsToProperties(){
@@ -56,12 +57,33 @@ class DefaultController extends Controller
         dd($a);
     }
 
-    //     public function number(){
-    // $users = User::all();
-    // foreach ($users['phone'] as $index => $value) {
-    //     $users['phone'][$index] = Str::replaceFirst('0','1',$value);
-    // }
 
+    public function setNumbers(){
+        $users = User::all();
+
+        foreach($users as $user) {
+            $str = $user->phone;
+            if (isset($str[0]) && $str[0] == 3) {
+                $u = User::find($user->id);
+                $u->phone = '92' . $u->phone;
+                $u->save();
+            } elseif (isset($str[0]) && $str[0] == 0) {
+                $arr1 = explode("0",$user->phone);
+                $u = User::find($user->id);
+                if (isset($arr1[1])) {
+                    $u->phone = '92' . $arr1[1];
+                $u->save();
+                }
+
+            }
+        }
+    }
+
+    public function test(){
+
+        $num = '0321-26799-32';
+        // $num = str_replace('-', '', $num);
+        dd($num);
 
     }
 }

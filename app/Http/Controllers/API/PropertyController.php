@@ -38,7 +38,6 @@ class PropertyController extends Controller
 
     public function search(Request $request)
     {
-
         if (isset($request->nearby)) {
             $radius = 10;
             $properties = Property::select(DB::raw('*,( 3959 * acos( cos( radians(' . $request->latitude . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $request->longitude . ') ) + sin( radians(' . $request->latitude . ') ) * sin( radians(latitude) ) ) ) AS distance'))->paginate(25);
@@ -51,7 +50,7 @@ class PropertyController extends Controller
         }
         $global = new GlobalClass;
         $search = '';
-        $properties = Property::with(['images'])->where('id', '!=', null)->whereHas('images', function ($query) use ($search) {
+        $properties = Property::with(['images'])->where('id', '!=', null)->orderBy('created_at', 'desc')->whereHas('images', function ($query) use ($search) {
             $query->where('name', '!=', null);
         });
         $pagination_array = array();
@@ -171,22 +170,21 @@ class PropertyController extends Controller
 
             $pagination_array = $this->array_push_assoc($pagination_array, 'search', $request->search);
         }
-        if(!$request->search){
+        // if(!$request->search){
 
-            $properties = $properties->where('formatted',1)->paginate(25);
-            return new PropertyCollection($properties);
-        }
+        //     $properties = $properties->where('formatted',1)->paginate(28);
+        //     return new PropertyCollection($properties);
+        // }
         if (isset($request->all)) {
-
-            $properties = $properties->orderBy('created_at', 'desc')->get();
+            $properties = $properties->orderBy('id', 'desc')->get();
             return new PropertyShortCollection($properties);
 
         }
         if (isset($request->formatted)) {
             // dd($request->formatted);
 
-            $properties = $properties->where('formatted', $request->formatted)->paginate(25);
-            return new PropertyCollection($properties);
+            $properties = $properties->where('formatted', $request->formatted);
+            $pagination_array = $this->array_push_assoc($pagination_array, 'formatted', $request->formatted);
         }
         // if (isset($request->formatted)) {
         //     // dd($request->formatted);
@@ -199,8 +197,7 @@ class PropertyController extends Controller
         //         'formatted' => new PropertyCollection($properties1),
         //     ]);
         // }
-
-        $properties = $properties->orderBy('created_at', 'desc')->paginate(28)->setPath('');
+        $properties = $properties->orderBy('created_at', 'desc')->paginate($request->propertyCount)->setPath('');
         $properties->sortBy('priority');
         $pagination = $properties->appends($pagination_array);
         // dd($properties);

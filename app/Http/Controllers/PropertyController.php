@@ -80,7 +80,7 @@ class PropertyController extends Controller
                 'keyword' => $request->keyword
             ));
         }
-        
+
         $area_one = AreaOne::all();
         $area_two = AreaTwo::all();
 
@@ -89,7 +89,7 @@ class PropertyController extends Controller
         // $a = array();
         // $chatprop = DB::table('posts')->get();
         // foreach ($chatprop as $property) {
-            
+
         //         $array = explode(',', $property->latlng);
 
 
@@ -102,7 +102,7 @@ class PropertyController extends Controller
         //         // dd($property->user_name);
         //         if($property->user_name==$name){
         //             // dd($property->id);
-    
+
         //             $pro->update([
         //                 'old_id'=> $property->id
         //             ]);
@@ -113,7 +113,7 @@ class PropertyController extends Controller
         //     }
         // }
 
-        
+
         // dd($a);
 
     }
@@ -144,7 +144,7 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
 
-       $property = Property::create($request->except('images'));
+       $property = Property::create($request->except('images')); // 1313
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
@@ -240,7 +240,7 @@ class PropertyController extends Controller
     }
     public function filter(Request $request)
     {
-       
+
 
         $properties = Property::orderBy('created_at', 'desc')->paginate(25);
         $area_one = AreaOne::all();

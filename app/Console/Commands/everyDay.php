@@ -56,4 +56,9 @@ class everyDay extends Command
             echo $count;
 
     }
+
+
+
+
+    
 }

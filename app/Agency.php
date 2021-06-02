@@ -10,8 +10,10 @@ class Agency extends Model
 
 
     protected $fillable = [
-        'id', 'user_id', 'name', 'status', 'verified', 'area_three_id', 'area_two_id', 'area_one_id','major_area','minor_area','image'
+        'id', 'user_id', 'name', 'status', 'verified', 'area_three_id', 'area_two_id', 'area_one_id','major_area','minor_area','image',
+
     ];
+    
 
 
     public function user()
@@ -45,5 +47,5 @@ class Agency extends Model
         return $this->hasMany(Property::class, 'agency_id');
     }
 
-    
+
 }

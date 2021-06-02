@@ -1332,6 +1332,8 @@
                     document.getElementById("countClick" + id).value = 0;
                     $("#desc" + id).css('border', '1px solid #ffffff00');
                     $('#desc' + id).text(responese.desc);
+
+                    window.location.reload()
                     // alert("#visit_date".id)
                     // alert(date)
 
@@ -1378,7 +1380,7 @@
                     $("#visit_date2" + id).show();
                     $("#visit_date2" + id).text('{{ date('h:i A', strtotime('responese.date')) }}');
 
-
+                    window.location.reload()
 
 
                     // setTimeout(function(){ $("#tick").css("display", "block"); },2000);
@@ -1454,7 +1456,7 @@
                 data: {
                     responsestatus_id: id,
                     responsestatus_val: val,
-                   
+
                 },
             });
 

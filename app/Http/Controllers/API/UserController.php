@@ -312,6 +312,6 @@ class UserController extends Controller
             User::where('id', $user->id)->update(['image' => $filename, 'thumbnail' => $filename]);
         }
 
-        return 'https://chhatt.s3.ap-south-1.amazonaws.com/users/' . $user->image;
+        return 'https://chhatt.s3.ap-south-1.amazonaws.com/users/' . $filename;
     }
 }
