@@ -318,7 +318,7 @@
                                             @foreach ($propertytype as $item)
 
 
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            <option value="{{$item->name}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -347,7 +347,7 @@
                                             @foreach ($propertySocialGroups as $propertySocialGroup)
 
 
-                                            <option value="{{$propertySocialGroup->name}}">{{$propertySocialGroup->name}}</option>
+                                            <option value="{{$propertySocialGroup->id}}">{{$propertySocialGroup->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
