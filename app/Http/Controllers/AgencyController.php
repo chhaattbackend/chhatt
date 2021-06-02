@@ -83,6 +83,13 @@ class AgencyController extends Controller
     {
 
         // dd($request->all());
+        $this->validate($request,[
+            'user_id' => 'required',
+            'area_one_id' => 'required',
+            'name' => 'required',
+            'area_two_id' => 'required',
+            ]);
+
         if ($request->file('image')) {
             $filename = $this->globalclass->storeS3($request->file('image'), 'agencies');
             Agency::create($request->except('image') + ["image" => $filename]);
@@ -103,9 +110,9 @@ class AgencyController extends Controller
     {
         $agents = Agent::where('agency_id', $agency->id)->get();
         $agentproperties = 0;
-        
+
         foreach($agents as $agent) {
-            $agentproperties += count($agent->properties);  
+            $agentproperties += count($agent->properties);
 
         }
         $agencyproperties=$agency->properties->count();

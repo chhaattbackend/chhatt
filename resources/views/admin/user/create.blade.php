@@ -64,6 +64,11 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Phone</label>
                                     <div class="col-sm-6">
                                         <input required type="number" name="phone" class="form-control @error('phone') is-invalid @enderror" value="92">
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                 </div>
@@ -73,6 +78,11 @@
                                     <div class="col-sm-6">
                                         <input required type="number" name="mobile"
                                             class="form-control @error('mobile') is-invalid @enderror" value="92">
+                                            @error('mobile')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 

@@ -76,22 +76,24 @@ class LeadController extends Controller
             "name" => $request->name,
             "email" => $request->email,
             "phone" => $request->phone,
-            // "description" => $request->description,
-            // "budget" => $request->budget,
-            // "lead_type" => $request->lead_type,
-            // "how_soon" => $request->how_soon,
-            // "family_members" => $request->family_members,
-            // "leadsource" => $request->leadsource,
-            // "call_status" => $request->call_status,
-            // "response_status" => $request->response_status,
-            // "property_type" => $request->nproperty_typeame,
-            // "added_by" => auth()->user()->name,
+            "description" => $request->description,
+            "budget" => $request->budget,
+            "lead_type" => $request->lead_type,
+            "how_soon" => $request->how_soon,
+            "family_members" => $request->family_members,
+            "leadsource" => $request->leadsource,
+            "call_status" => $request->call_status,
+            "response_status" => $request->response_status,
+            "property_type" => $request->nproperty_typeame,
+            "added_by" => auth()->user()->name,
 
         );
+        Mail::to('muddasirali99@gmail.com')->send(new MailMail($data)); 
+
         $user=User::where('id',$request->user_id)->first();
         $globalclass=new GlobalClass;
         $globalclass->sendLeadSms($lead->name,$lead->email,$lead->phone,$request->message,optional($lead->areaOne)->name,$lead->budget,$lead->lead_type,$lead->family_members,$lead->property_type,$user->phone,$request->link,'web');
-    }
+        }
 
         // Mail::to('muddasirali99@gmail.com')->send(new MailMail($data));
         return response()->json([

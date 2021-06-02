@@ -7,19 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class mail extends Mailable
+class leadsmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $data1;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->data1=$data;
-        // dd($this->data1);
+        //
     }
 
     /**
@@ -29,8 +28,6 @@ class mail extends Mailable
      */
     public function build()
     {
-        // dd($this->data1);
-        // return $this->markdown('emails.leadmail')->with('message', $this->message); ->from('john@webslesson.info')
-        return $this->subject('New Lead Added')->markdown('emails.leadmail')->with('data', $this->data1);
+        return $this->view('emails.leadmail');
     }
 }
