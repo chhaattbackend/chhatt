@@ -91,7 +91,7 @@ class LeadController extends Controller
             $user=User::where('id',$request->user_id)->first();
             $globalclass=new GlobalClass;
             $globalclass->sendLeadSms($lead->name,$lead->email,$lead->phone,$request->message,optional($lead->areaOne)->name,$lead->budget,$lead->lead_type,$lead->family_members,$lead->property_type,$user->phone,$request->link,'web');
-            Mail::to('uzair.7417@gmail.com')->send(new MailMail($data));
+            Mail::to('murarg@gmail.com')->send(new MailMail($data));
         }
 
         return response()->json([
