@@ -147,14 +147,14 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-
-        if($request->p_type == 'Residential'){
+        $marker = 1;
+        if($request->type == 'Residential'){
             $marker = 4;
         }
-        if($request->p_type == 'Commercial'){
+        if($request->type == 'Commercial'){
             $marker = 3;
         }
-        if($request->p_type == 'Industrial'){
+        if($request->type == 'Industrial'){
             $marker = 1;
         }
 
