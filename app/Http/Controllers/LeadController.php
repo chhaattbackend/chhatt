@@ -19,7 +19,6 @@ use App\PropertyType;
 use App\ResponseStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class LeadController extends Controller
 {
@@ -160,22 +159,6 @@ class LeadController extends Controller
     }
     public function storeproject(Request $request)
     {
-        // $data = array(
-        //     "name" => $request->name,
-        //     "email" => $request->email,
-        //     "phone" => $request->phone,
-        //     // "description" => $request->description,
-        //     // "budget" => $request->budget,
-        //     // "lead_type" => $request->lead_type,
-        //     // "how_soon" => $request->how_soon,
-        //     // "family_members" => $request->family_members,
-        //     // "leadsource" => $request->leadsource,
-        //     // "call_status" => $request->call_status,
-        //     // "response_status" => $request->response_status,
-        //     // "property_type" => $request->nproperty_typeame,
-        //     // "added_by" => auth()->user()->name,
-
-        //     );
         $lead = Lead::create($request->except('project_id') + ['created_by' => auth()->user()->id]);
 
         $lead_id = $lead->id;
@@ -185,7 +168,7 @@ class LeadController extends Controller
             'project_id' => $request->project_id,
         ]);
 
-        // Mail::to('hm6048884hm@gmail.com')->send(new MailMail($data));
+
         return redirect()->route('leadprojects.index');
     }
 
@@ -197,26 +180,8 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-        $data = array(
-            "name" => $request->name,
-            "email" => $request->email,
-            "phone" => $request->phone,
-            "description" => $request->description,
-            "budget" => $request->budget,
-            "lead_type" => $request->lead_type,
-            "how_soon" => $request->how_soon,
-            "family_members" => $request->family_members,
-            "leadsource" => $request->leadsource,
-            "call_status" => $request->call_status,
-            "response_status" => $request->response_status,
-            "property_type" => $request->nproperty_typeame,
-            // "added_by" => auth()->user()->name,
-            );
-
-        Mail::to('uzair.7417@gmail.com')->send(new MailMail($data));
-
         // dd($request->all());
-        // Lead::create($request->all() + ['created_by' => auth()->user()->id]);
+        Lead::create($request->all() + ['created_by' => auth()->user()->id]);
         return redirect()->route('leads.index');
     }
 
