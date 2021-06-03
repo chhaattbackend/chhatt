@@ -9,14 +9,16 @@ use App\Lead;
 use App\LeadProject;
 use App\Project;
 use App\Property;
+use App\PropertyImage;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Throwable;
 
 class LeadsImport implements ToModel, WithHeadingRow
 {
-   public  $val;
+    public  $val;
     /**
      * @param array $row
      *
@@ -25,7 +27,7 @@ class LeadsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
 
-        if($row['sn'] != null){
+        if ($row['sn'] != null) {
             if (!isset($row['bed'])) {
                 $row['bed'] = null;
             }
@@ -76,6 +78,12 @@ class LeadsImport implements ToModel, WithHeadingRow
             } else {
                 $size_type = 'yards';
             }
+
+            $longitude = explode(',' ,$row['phase']->latlong);
+            $latitude = $longitude[0];
+            $longitude = $longitude[1];
+
+
             //----------------------SCRIPTING------------------------------------------------//
 
 
@@ -85,22 +93,16 @@ class LeadsImport implements ToModel, WithHeadingRow
             $this->val .= $row['sn'];
             $user = User::where('name',  'like', '%' . $row['contact_person'] . '%')->where('phone', $row['mobile'])->first();
             if ($user == null) {
-                try{
+                try {
 
                     User::create([
                         'name' =>  $row['contact_person'],
                         'phone' =>  $row['mobile'],
                         'role_id' => 3,
                     ]);
+                } catch (Throwable $e) {
 
-
-
-                }
-                catch(Throwable $e){
-
-                    dd('mera dd'.$this->val);
-
-
+                    dd('mera dd' . $this->val);
                 }
             }
             $agency = Agency::where('name', $row['agency_name'])->where('area_one_id', 6)->first();
@@ -126,9 +128,9 @@ class LeadsImport implements ToModel, WithHeadingRow
             $properties = Property::where('user_id', $user->id)->where('address', $row['street_or_features'])->first();
             if ($properties == null) {
                 $get = '';
-                $get  = $row['area'].' '.$row['type'].' '.$row['property_type'].' '.$row['for'].' DHA '.$row['phase']->name;
+                $get  = $row['area'] . ' ' . $row['type'] . ' ' . $row['property_type'] . ' ' . $row['for'] . ' DHA ' . $row['phase']->name;
 
-                Property::create([
+              $properties =  Property::create([
                     'user_id' => $user->id,
                     'agency_id' => $agency->id,
                     'area_one_id' => 6,
@@ -153,54 +155,31 @@ class LeadsImport implements ToModel, WithHeadingRow
 
 
                 ]);
+                $marker = 1;
+                if ($row['type'] == 'Residential') {
+                    $marker = 4;
+                }
+                if ($row['type'] == 'Commercial') {
+                    $marker = 3;
+                }
+                if ($row['type'] == 'Industrial') {
+                    $marker = 1;
+                }
+
+                $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $row['phase']->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$latitude.','.$longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+
+                $filename = 'marker' . time() . 'png';
+                Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
+                PropertyImage::create([
+                    'property_id' => $properties->id,
+                    'name' => 'StaticMap/' . $filename,
+                    'sort_order' => 9
+                ]);
+
+
+
 
             }
         }
-
-        //dd($row['project']);
-        // $leadsource =null;
-        // $leadsource =
-        // $fuzoolnames=array('Islamabad','Rent','UAE','Islamabad(Karachi)','Islamabad-Interest',);
-        // $replace_by=array('','','','','');
-        // $project_name=trim(str_ireplace($fuzoolnames,$replace_by,$row['project']));
-        // $project_name = explode(" ",$row['project']);
-        // $project = Project::where('name', 'like', '%' .$project_name[0]. '%')->first();
-        // $lead = Lead::create([
-        //     'name'     => $row['name'],
-        //     'email'    => $row['email'],
-        //     'phone'     => $row['phone'],
-        //     'leadsource'    => $row['project'],
-        //     'created_at'    => $row['created_at'],
-        //     ]);
-        //     LeadProject::create([
-        //         'project_id'=>$project->id,
-        //         'lead_id'=>$lead->id
-        //     ]);
-        //     return $lead;
-
-
-
-
-
-
-
-        //--------------------Initial--------------------------//
-
-        ////////////////////////////////////
-        ////////////////////////
-        // if ($request->hasFile('images')) {
-        //     $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
-        // } else {
-        //     $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker1.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
-        //     $filename = 'marker' . time() . 'png';
-        //     Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
-        //     PropertyImage::create([
-        //         'property_id' => $property->id,
-        //         'name' => 'StaticMap/' . $filename,
-        //         'sort_order' => 9
-        //     ]);
-        // }
     }
-
-    //homie
 }

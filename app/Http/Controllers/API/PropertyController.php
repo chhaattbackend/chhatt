@@ -320,15 +320,25 @@ class PropertyController extends Controller
         ]);
 
 
+        $marker = 1;
+        if($request->type == 'Residential'){
+            $marker = 4;
+        }
+        if($request->type == 'Commercial'){
+            $marker = 3;
+        }
+        if($request->type == 'Industrial'){
+            $marker = 1;
+        }
 
+       $property = Property::create($request->except('images')); // 1313
         if ($request->hasFile('images')) {
-
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
-            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=latlng&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker3.png|' . $request->latlong . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+
             $filename = 'marker' . time() . 'png';
             Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
-
             PropertyImage::create([
                 'property_id' => $property->id,
                 'name' => 'StaticMap/' . $filename,
