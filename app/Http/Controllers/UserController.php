@@ -34,6 +34,7 @@ class UserController extends Controller
         } else {
             $users = User::where('name', 'like', '%' . $request->keyword . '%')
             ->orWhere('email', 'like', '%' . $request->keyword . '%')
+            ->orWhere('firebase_id', 'like', '%' . $request->keyword . '%')
             ->orWhere('id', 'like', '%' . $request->keyword . '%')
             ->orWhere('phone', 'like', '%' . $request->keyword . '%')
             ->orWhere('mobile', 'like', '%' . $request->keyword . '%')
@@ -144,7 +145,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $item = User::find($id);
+        $item = User
+
+        ::find($id);
         $item->delete();
         return redirect()->back();
     }
