@@ -48,6 +48,15 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Firebase</label>
+                                    <div class="col-sm-6">
+                                        <input value="{{ $user->firebase_id }}" required type="text" name="firebase_id"
+                                            class="form-control">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-6">
                                         <input type="email" value="{{ $user->email }}" type="text" name="email"
@@ -89,10 +98,10 @@
 
                                 </div>
 
-                                
+
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
-                                    
+
                                     <div class="col-sm-6">
                                         <input type='file' name="image" onchange="readURL(this);" />
                                         @if ($user->thumbnail == null)
@@ -101,7 +110,7 @@
                                         <img id="blah" width="100%" height="150px" src="https://chhatt.s3.ap-south-1.amazonaws.com/users/{{$user->thumbnail}}" />
                                         @endif
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Firebase ID</label>
