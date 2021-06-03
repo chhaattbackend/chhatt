@@ -147,6 +147,8 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+
+        
         $marker = 1;
         if($request->type == 'Residential'){
             $marker = 4;
