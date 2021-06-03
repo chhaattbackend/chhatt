@@ -510,15 +510,15 @@
                                 <h4>Lead Name: {{ $data['name'] }}</h4>
                                 <h4>Lead Email: {{ $data['email'] }}</h4>
                                 <h4>Lead Phone: {{ $data['phone'] }}</h4>
-                                {{-- <h4>Lead Description: {{ $data['description'] }}</h4> --}}
-                                {{-- <h4>Lead Budget: {{ $data['budget'] }}</h4> --}}
-                                {{-- <h4>Lead Lead Type: {{ $data['lead_type'] }}</h4> --}}
-                                {{-- <h4>Lead How Soon: {{ $data['how_soon'] }}</h4> --}}
-                                {{-- <h4>Lead Family Members: {{ $data['family_members'] }}</h4> --}}
-                                {{-- <h4>Lead Leadsource: {{ $data['leadsource'] }}</h4> --}}
-                                {{-- <h4>Lead Call Status: {{ $data['call_status'] }}</h4> --}}
-                                {{-- <h4>Lead Response Status: {{ $data['response_status'] }}</h4> --}}
-                                {{-- <h4>Lead Added By: {{ $data['added_by'] }}</h4> --}}
+                                <h4>Lead Description: {{ $data['description'] }}</h4>
+                                <h4>Lead Budget: {{ $data['budget'] }}</h4>
+                                <h4>Lead Lead Type: {{ $data['lead_type'] }}</h4>
+                                <h4>Lead How Soon: {{ $data['how_soon'] }}</h4>
+                                <h4>Lead Family Members: {{ $data['family_members'] }}</h4>
+                                <h4>Lead Leadsource: {{ $data['leadsource'] }}</h4>
+                                <h4>Lead Call Status: {{ $data['call_status'] }}</h4>
+                                <h4>Lead Response Status: {{ $data['response_status'] }}</h4>
+                                <h4>Lead Added By: {{ $data['added_by'] }}</h4>
                         </div>
                         <div style="text-align: right;padding:10px;font-size: 15px">
 
