@@ -172,7 +172,7 @@
                                         <select  class="form-control" name="user_id">
                                             <option disabled selected value="">Select User</option>
                                             @foreach ($users as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->phone }}</option>
                                             @endforeach
                                         </select>
                                     </div>
