@@ -96,6 +96,21 @@
                             @csrf
                             <div class="card-body">
                                 <input type="hidden" name ="link" value="{{$link}}">
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Inventory Type</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" name="inventory_type">
+                                            <option disabled selected value="">Select Type</option>
+
+                                            <option @if ($property->inventory_type == 'requirement') selected @endif value="requirement">Requirement
+                                            </option>
+                                            <option @if ($property->inventory_type == 'inventory') selected @endif value="inventory">Inventory
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">User</label>
                                     <div class="col-sm-6">

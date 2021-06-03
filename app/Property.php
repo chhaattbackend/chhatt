@@ -43,6 +43,7 @@ class Property extends Model
         'bulk',
         'social_type_id',
         'group_id',
+        'inventory_type',
     ];
 
     public function user()
