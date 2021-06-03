@@ -87,7 +87,6 @@ class LeadAssignController extends Controller
     {
         $lead_id = $id;
         $agents = Agent::all();
-
         return view('admin.lead_assign.create', compact('lead_id', 'agents'));
     }
 

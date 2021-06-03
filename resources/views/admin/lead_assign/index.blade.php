@@ -39,7 +39,7 @@
                                                 class="fas fa-search"></i></button>
                                 </form>
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -67,8 +67,8 @@
                             @forelse ($leadAssigns as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->agent->user->name }}</td>
-                                    <td>{{ $item->agent->user->phone }}</td>
+                                    <td>{{ optional($item->agent->user)->name }}</td>
+                                    <td>{{ optional($item->agent->user)->phone }}</td>
                                     <td>{{ optional($item->lead->areaOne)->name }}</td>
                                     <td>{{ optional($item->lead)->name}}</td>
                                     <td>{{ optional($item->lead)->phone}}</td>
