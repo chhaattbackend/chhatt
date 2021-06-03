@@ -167,6 +167,18 @@
                             <div class="card-body">
 
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Inventory Type</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control" name="inventory_type">
+                                            <option disabled selected value="">Select Type</option>
+
+                                            <option value="requirement">Requirement</option>
+                                            <option value="inventory">Inventory</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">User</label>
                                     <div class="col-sm-6">
                                         <select  class="form-control" name="user_id">
