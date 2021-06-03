@@ -142,5 +142,6 @@ Route::post('import', 'MyController@import')->name('import');
 
 Route::get('migrate-id-from-posts-to-properties', 'DefaultController@postsToProperties');
 Route::get('contact-set', 'DefaultController@setNumbers');
+Route::get('test', 'DefaultController@test');
 
 //---------------------------------------------End Default Routes-------------------------------------------------------------------

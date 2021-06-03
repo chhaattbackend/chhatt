@@ -148,7 +148,7 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
 
-       $property = Property::create($request->except('images'));
+       $property = Property::create($request->except('images')); // 1313
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {

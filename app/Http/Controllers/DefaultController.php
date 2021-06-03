@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Property;
-use DB;
 use App\User;
+use DB;
+
 
 class DefaultController extends Controller
 {
@@ -73,8 +74,16 @@ class DefaultController extends Controller
                     $u->phone = '92' . $arr1[1];
                 $u->save();
                 }
-                
-            } 
+
+            }
         }
+    }
+
+    public function test(){
+
+        $num = '0321-26799-32';
+        // $num = str_replace('-', '', $num);
+        dd($num);
+
     }
 }
