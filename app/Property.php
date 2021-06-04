@@ -44,6 +44,7 @@ class Property extends Model
         'social_type_id',
         'group_id',
         'inventory_type',
+        'platform',
     ];
 
     public function user()

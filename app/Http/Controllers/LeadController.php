@@ -19,6 +19,7 @@ use App\PropertyType;
 use App\ResponseStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class LeadController extends Controller
 {
@@ -182,6 +183,8 @@ class LeadController extends Controller
     {
         // dd($request->all());
         Lead::create($request->all() + ['created_by' => auth()->user()->id]);
+
+
         return redirect()->route('leads.index');
     }
 

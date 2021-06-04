@@ -186,7 +186,6 @@
                             <th>Agency</th>
                             <th>Area</th>
                             <th>Sub-Area</th>
-                            {{-- <th>Sub-Sub-Area</th> --}}
                             {{-- <th>Name</th> --}}
                             <th>Address</th>
                             <th>Price</th>
@@ -198,11 +197,12 @@
                             <th>Bath</th>
                             <th>images</th>
                             {{-- <th>Description</th> --}}
+                            <th>Form</th>
                             <th>Created At</th>
+                            <th>Updated At</th>
                             <th>Priority</th>
                             {{-- <th>Advertised</th> --}}
                             <th>Edit Image</th>
-                            {{-- <th>Updated At</th> --}}
 
                             <th>Action</th>
                         </tr>
@@ -232,8 +232,9 @@
                                 <td>{{ $item->bed }}</td>
                                 <td>{{ $item->bath }}</td>
                                 <td>{{ count($item->images) }}</td>
-                                {{-- <td>{{ $item->description }}</td> --}}
+                                <td>{{ $item->platform }}</td>
                                 <td>{{ $item->created_at->diffForHumans() }}</td>
+                                <td>{{ $item->updated_at->diffForHumans() }}</td>
 
                                 <td>
                                     @if ($item->priority == 1)
