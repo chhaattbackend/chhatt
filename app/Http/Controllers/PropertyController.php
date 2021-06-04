@@ -117,12 +117,7 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< Updated upstream
         $request->platform = 'Web | '. auth()->user()->email;
-=======
-
-
->>>>>>> Stashed changes
         $marker = 1;
         if($request->type == 'Residential'){
             $marker = 4;
