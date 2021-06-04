@@ -197,7 +197,7 @@
                             <th>Bath</th>
                             <th>images</th>
                             {{-- <th>Description</th> --}}
-                            <th>Form</th>
+                            <th>Platform</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>Priority</th>
