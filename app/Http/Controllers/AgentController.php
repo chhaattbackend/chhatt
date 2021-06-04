@@ -226,10 +226,14 @@ class AgentController extends Controller
      */
     public function destroy($id)
     {
-        // $item = Agent::find($id);
-        // $item->delete();
-        // AgentSpeciality::where('agent_id',$id)->delete();
-        // AgentArea::where('agent_id',$id)->delete();
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
+            
+            
+            $item = Agent::find($id);
+            $item->delete();
+            AgentSpeciality::where('agent_id',$id)->delete();
+            AgentArea::where('agent_id',$id)->delete();
+        }
         return redirect()->back();
     }
 

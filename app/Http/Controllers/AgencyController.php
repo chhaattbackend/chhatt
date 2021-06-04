@@ -168,8 +168,11 @@ class AgencyController extends Controller
      */
     public function destroy($id)
     {
-        // $item = Agency::find($id);
-        // $item->delete();
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
+            
+            $item = Agency::find($id);
+            $item->delete();
+        }
         return redirect()->back();
     }
     public function getParent($category_id)
