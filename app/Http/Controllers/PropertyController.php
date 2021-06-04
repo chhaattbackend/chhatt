@@ -13,6 +13,8 @@ use App\PropertyFor;
 use App\PropertyImage;
 use App\PropertyType;
 use App\User;
+use App\SocialType;
+use App\PropertyGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -80,7 +82,7 @@ class PropertyController extends Controller
                 'keyword' => $request->keyword
             ));
         }
-        
+
         $area_one = AreaOne::all();
         $area_two = AreaTwo::all();
 
@@ -89,7 +91,7 @@ class PropertyController extends Controller
         // $a = array();
         // $chatprop = DB::table('posts')->get();
         // foreach ($chatprop as $property) {
-            
+
         //         $array = explode(',', $property->latlng);
 
 
@@ -102,7 +104,7 @@ class PropertyController extends Controller
         //         // dd($property->user_name);
         //         if($property->user_name==$name){
         //             // dd($property->id);
-    
+
         //             $pro->update([
         //                 'old_id'=> $property->id
         //             ]);
@@ -113,7 +115,7 @@ class PropertyController extends Controller
         //     }
         // }
 
-        
+
         // dd($a);
 
     }
@@ -132,7 +134,9 @@ class PropertyController extends Controller
         $area_three = AreaThree::all();
         $propertyfor = PropertyFor::all();
         $propertytype = PropertyType::all();
-        return view('admin.property.create', compact(['users','city', 'area_one', 'area_two', 'area_three', 'propertyfor', 'propertytype']));
+        $propertySocialTypes = SocialType::all();
+        $propertySocialGroups = PropertyGroup::all();
+        return view('admin.property.create', compact(['users','city', 'area_one', 'area_two', 'area_three', 'propertyfor', 'propertytype', 'propertySocialTypes', 'propertySocialGroups']));
     }
 
     /**
@@ -144,11 +148,23 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
 
-       $property = Property::create($request->except('images'));
+        
+        $marker = 1;
+        if($request->type == 'Residential'){
+            $marker = 4;
+        }
+        if($request->type == 'Commercial'){
+            $marker = 3;
+        }
+        if($request->type == 'Industrial'){
+            $marker = 1;
+        }
+
+       $property = Property::create($request->except('images')); // 1313
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
-            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker1.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
             $filename = 'marker' . time() . 'png';
             Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
@@ -188,11 +204,12 @@ class PropertyController extends Controller
         $area_three = AreaThree::all();
         $propertyfor = PropertyFor::all();
         $propertytype = PropertyType::all();
-
+        $propertySocialTypes = SocialType::all();
+        $propertySocialGroups = PropertyGroup::all();
         $city = City::all();
         $link = url()->previous();
 
-       return view('admin.property.edit', compact(['city','property', 'users', 'area_one', 'area_two', 'area_three', 'propertyfor','link','propertytype']));
+       return view('admin.property.edit', compact(['city','property', 'users', 'area_one', 'area_two', 'area_three', 'propertyfor','link','propertytype','propertySocialTypes', 'propertySocialGroups']));
     }
 
     /**
@@ -240,7 +257,7 @@ class PropertyController extends Controller
     }
     public function filter(Request $request)
     {
-       
+
 
         $properties = Property::orderBy('created_at', 'desc')->paginate(25);
         $area_one = AreaOne::all();

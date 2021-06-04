@@ -77,12 +77,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('callstatus', 'CallstatusController');
     Route::resource('propertytypes', 'PropertyTypeController');
     Route::resource('socialtypes', 'SocialTypeController');
+    Route::resource('propertygroups', 'PropertyGroupController');
 
     //-------------------Extra Features--------------------------------
 
     Route::get('parent/{id}', 'AgencyController@getParent')->name('parent');
     Route::get('categories/{id}', 'AgencyController@getSubCategory')->name('categories');
     Route::get('subcategories/{id}', 'AgencyController@getSubSubCategory')->name('subcategories');
+    Route::get('groups/{id}', 'PropertyGroupController@getgroups')->name('groups');
 
     Route::post('leads/ajax', 'LeadController@ajax');
     Route::post('leads/ajaxSearch', 'LeadController@ajaxSearch');
@@ -140,5 +142,6 @@ Route::post('import', 'MyController@import')->name('import');
 
 Route::get('migrate-id-from-posts-to-properties', 'DefaultController@postsToProperties');
 Route::get('contact-set', 'DefaultController@setNumbers');
+Route::get('test', 'DefaultController@test');
 
 //---------------------------------------------End Default Routes-------------------------------------------------------------------

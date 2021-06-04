@@ -96,6 +96,21 @@
                             @csrf
                             <div class="card-body">
                                 <input type="hidden" name ="link" value="{{$link}}">
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Inventory Type</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" name="inventory_type">
+                                            <option disabled selected value="">Select Type</option>
+
+                                            <option @if ($property->inventory_type == 'requirement') selected @endif value="requirement">Requirement
+                                            </option>
+                                            <option @if ($property->inventory_type == 'inventory') selected @endif value="inventory">Inventory
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">User</label>
                                     <div class="col-sm-6">
@@ -228,6 +243,37 @@
                                             @foreach ($propertytype as $item)
                                                 <option @if ($property->property_type == $item->name) selected @endif value="{{ $item->name }}">
                                                     {{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Property Social Type</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control" name="social_type_id" id="social_type_id">
+                                            <option disabled selected value="">Select Type</option>
+                                            @foreach ($propertySocialTypes as $propertySocialType)
+
+
+                                            <option @if ($property->social_type_id == $propertySocialType->id) selected @endif value="{{ $propertySocialType->id }}">
+                                                {{ $propertySocialType->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Property Social Group</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control" name="group_id" id="group_id">
+                                            <option disabled selected value="">Select Group</option>
+                                            @foreach ($propertySocialGroups as $propertySocialGroup)
+
+
+                                            <option @if ($property->group_id == $propertySocialGroup->id) selected @endif value="{{ $propertySocialGroup->id }}">
+                                                {{ $propertySocialGroup->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
