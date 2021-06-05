@@ -167,4 +167,8 @@ class AgentController extends Controller
             'success' => true
         ]);
     }
+
+    public function getName(){
+        
+    }
 }
