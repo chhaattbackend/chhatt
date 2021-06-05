@@ -80,7 +80,7 @@ class PropertyImageController extends Controller
     public function update(Request $request, PropertyImage $propertyImage)
     {
         // $this->globalclass->storeMultipleS3($request->file('images'),'properties',$request->property_id);
-        $marker = 1;
+       dd($request->all);
         if($request->type == 'Residential'){
             $marker = 4;
         }
