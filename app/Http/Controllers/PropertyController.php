@@ -131,14 +131,16 @@ class PropertyController extends Controller
 
 
 
-        dd($marker);
+
        $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]);
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
+
         } else {
             $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
             $filename = 'marker' . time() . 'png';
+            dd($filename);
             Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
             PropertyImage::create([
                 'property_id' => $property->id,
