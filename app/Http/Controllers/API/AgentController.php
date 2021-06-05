@@ -168,7 +168,17 @@ class AgentController extends Controller
         ]);
     }
 
-    public function getName(){
-        
+    public function getName(Request $request){
+        $access_token = $request->header('auth');
+        if (!empty($access_token)) {
+            $user = User::where('remember_token', $access_token)->first();
+            if (!empty($user)) {
+                return response()->json(['success' => 'User successfuly login.', 'name' => $user->name]);
+            } else {
+                return response()->json(['error' => 'Unauthorized']);
+            }
+        } else {
+            return response()->json(['error' => 'Unauthorized']);
+        }
     }
 }

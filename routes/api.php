@@ -123,4 +123,4 @@ Route::get('newsletter', function (Request $request) {
 });
 
 
-Route::get('getName', ' API\AgentController@getName');
+Route::get('getName', 'API\AgentController@getName');
