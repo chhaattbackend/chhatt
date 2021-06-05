@@ -130,8 +130,8 @@ class PropertyController extends Controller
         }
 
 
-        
 
+        dd($marker);
        $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]);
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
