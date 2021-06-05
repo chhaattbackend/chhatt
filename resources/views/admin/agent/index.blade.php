@@ -182,7 +182,7 @@
                         <tbody>
                             @forelse ($agents as $item)
                             @if ($item->agency==null)
-                                {{dd($item->agency_id)}}
+                                
                             @endif
                                 <tr>
                                     <td>{{ $item->id }}</td>

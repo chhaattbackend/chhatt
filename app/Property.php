@@ -38,10 +38,13 @@ class Property extends Model
         'list_type',
         'structured',
         'per_id',
+        'social_type_id',
+        'group_id',
         'bulk',
         'social_type_id',
         'group_id',
         'inventory_type',
+        'platform',
     ];
 
     public function user()

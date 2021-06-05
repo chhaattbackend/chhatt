@@ -306,29 +306,40 @@ class PropertyController extends Controller
             $area_two_id = AreaTwo::where('id', $area_three->area_two_id)->first()->id;
         }
 
+        $platform = 'Api | '. $user->email;
+
         // dd($area_two_id);
         // dd($user->id);
-        $property = Property::create($request->except('area_one_id', 'area_two_id', 'area_three_id', 'user_id', 'images', 'latitude', 'longitude') + [
+        $property = Property::create($request->except('area_one_id', 'area_two_id', 'area_three_id', 'user_id', 'images', 'latitude', 'longitude','platform') + [
             'area_one_id' => $area_one_id,
             'area_two_id' => $area_two_id,
             'area_three_id' => $area_three_id,
             'user_id' => $user->id,
             'latitude' => $latitude,
             'longitude' => $longitude,
-
-
+            'platform'=>$platform,
         ]);
 
 
+        $marker = 1;
+        if($request->type == 'Residential'){
+            $marker = 4;
+        }
+        if($request->type == 'Commercial'){
+            $marker = 3;
+        }
+        if($request->type == 'Industrial'){
+            $marker = 1;
+        }
 
+       $property = Property::create($request->except('images')); // 1313
         if ($request->hasFile('images')) {
-
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
-            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=latlng&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker3.png|' . $request->latlong . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+
             $filename = 'marker' . time() . 'png';
             Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
-
             PropertyImage::create([
                 'property_id' => $property->id,
                 'name' => 'StaticMap/' . $filename,

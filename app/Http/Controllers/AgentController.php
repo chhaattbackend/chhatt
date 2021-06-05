@@ -117,14 +117,24 @@ class AgentController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request,[
+            'user_id' => 'required',
+            'agency_id' => 'required',
+            'areas' => 'min:1',
+            'speciality' => 'min:1',
+            ]);
+            
         $agent = Agent::create($request->all());
 
         // dd($request->all());
-        foreach ($request->speciality as $speciality) {
-            AgentSpeciality::create([
-                'agent_id' => $agent->id,
-                'speciality_id' => $speciality
-            ]);
+        if ($request->speciality != null) {
+            foreach ($request->speciality as $speciality) {
+                AgentSpeciality::create([
+                    'agent_id' => $agent->id,
+                    'speciality_id' => $speciality
+                ]);
+            }
         }
 
         foreach ($request->areas as $area) {
@@ -216,10 +226,14 @@ class AgentController extends Controller
      */
     public function destroy($id)
     {
-        // $item = Agent::find($id);
-        // $item->delete();
-        // AgentSpeciality::where('agent_id',$id)->delete();
-        // AgentArea::where('agent_id',$id)->delete();
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
+            
+            
+            $item = Agent::find($id);
+            $item->delete();
+            AgentSpeciality::where('agent_id',$id)->delete();
+            AgentArea::where('agent_id',$id)->delete();
+        }
         return redirect()->back();
     }
 

@@ -480,17 +480,7 @@
                 <!--Profile Card 3-->
                 <div class="offset-sm-1 col-md-10">
                     <div class="card profile-card-3">
-                        <div class="background-block">
-                            {{-- <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                                alt="profile-sample1" class="background" /> --}}
-                            <img src="https://uat.chhatt.com/images/23628732.jpg" style="height: 100%;width: 100%;"
-                                alt="profile-sample1" class="background" />
-                        </div>
-                        <div class="profile-thumb-block">
-                            {{-- <img src="{{ asset('images/clogo.png') }}" alt="profile-image" class="profile" /> --}}
-                            {{-- <img src="https://uat.chhatt.com/images/clogo.png" alt="profile-image" class="profile" /> --}}
-
-                        </div>
+                       
                         <div class="card-content">
                             <h2>New Lead Added</h3>
                                 <br>

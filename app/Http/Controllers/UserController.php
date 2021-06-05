@@ -145,10 +145,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $item = User
-
-        ::find($id);
-        $item->delete();
+         if(auth()->user()->email == 'chhattofficial@chhatt.com'){
+            $item = User::find($id);
+            $item->delete();
+        }
         return redirect()->back();
     }
 
@@ -223,9 +223,7 @@ class UserController extends Controller
 
         $pagination = $users->appends(array(
             'role_id' => $request->role_id,
-
         ));
-
         return view('admin.user.index', compact(['users','roles']));
 
     }
