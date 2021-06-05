@@ -56,7 +56,7 @@ class PropertyController extends Controller
         } else {
 
             $seacrh = $request->keyword;
-            $properties = Property::where('id', '!=', null)->orderBy('created_at', 'desc');
+            $properties = Property::where('id', '!=', null)->orderBy('updated_at', 'desc');
 
             $properties = $properties->whereHas('user', function ($query) use ($seacrh) {
                 $query->where('name', 'like', '%' . $seacrh . '%');
@@ -88,36 +88,6 @@ class PropertyController extends Controller
 
         return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
 
-        // $a = array();
-        // $chatprop = DB::table('posts')->get();
-        // foreach ($chatprop as $property) {
-
-        //         $array = explode(',', $property->latlng);
-
-
-        //     $pro=Property::where('address' , 'like', '%' . $property->address . '%')->where('latitude',$array[0])->where('longitude',$array[1])->where('property_type',$property->p_type)->first();
-        //     ;
-        //     if ($pro != null) {
-        //         $name=optional($pro->user)->name;
-
-        //         // dd($name);
-        //         // dd($property->user_name);
-        //         if($property->user_name==$name){
-        //             // dd($property->id);
-
-        //             $pro->update([
-        //                 'old_id'=> $property->id
-        //             ]);
-        //         }
-        //     } else {
-        // array_push($a, $property->id);
-
-        //     }
-        // }
-
-
-        // dd($a);
-
     }
 
     /**
@@ -147,12 +117,26 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->platform = 'Web | '. auth()->user()->email;
+        $marker = 1;
+        if($request->type == 'Residential'){
+            $marker = 4;
+        }
+        if($request->type == 'Commercial'){
+            $marker = 3;
+        }
+        if($request->type == 'Industrial'){
+            $marker = 1;
+        }
 
-       $property = Property::create($request->except('images'));
+
+        
+
+       $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]);
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
-            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker1.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
             $filename = 'marker' . time() . 'png';
             Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
@@ -209,23 +193,25 @@ class PropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // @dd('wow');
 
-    $property = Property::find($id);
+        $property = Property::find($id);
         $property->update($request->all());
         $link = $request->link;
+        // @dd($link);
 
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
-            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker1.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+            // $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker1.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
-            $filename = 'marker' . time() . 'png';
-            Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
-            PropertyImage::create([
-                'property_id' => $property->id,
-                'name' => 'StaticMap/' . $filename,
-                'sort_order' => 9
-            ]);
+            // $filename = 'marker' . time() . 'png';
+            // Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
+            // PropertyImage::create([
+            //     'property_id' => $property->id,
+            //     'name' => 'StaticMap/' . $filename,
+            //     'sort_order' => 9
+            // ]);
         }
         return redirect($link)->with('message', 'Property Updated Successfully!');
     }
