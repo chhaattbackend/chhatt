@@ -99,8 +99,8 @@ class PropertyImageController extends Controller
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
 
-            dd($property->images);
-            if ($property->images == null) {
+
+            if (!isset($property->images)) {
 
                 $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $property->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker' . $this->marker . '.png%7C' . $property->latitude . ',' . $property->longitude . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
