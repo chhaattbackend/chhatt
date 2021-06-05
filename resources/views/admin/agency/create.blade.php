@@ -117,7 +117,8 @@
                                         <select required class="form-control" name="user_id" id="user_id">
                                             <option disabled selected value="">Select User</option>
                                             @foreach ($users as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }} {{ $item->phone }} </option>
+                                                <option value="{{ $item->id }}">{{ $item->name }} {{ $item->phone }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -163,8 +164,13 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Agency Name</label>
                                     <div class="col-sm-6">
-                                        <input required type="text" class="form-control" id="name" name="name"
-                                            placeholder="Enter Name">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                            id="name" name="name" placeholder="Enter Name">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                 </div>
@@ -262,7 +268,8 @@
                             $("#area_two_id").append(option);
                         }
                     }
-                    $("#area_three_id").html('<option disabled selected value="">Select Sub-Sub-Area</option>');
+                    $("#area_three_id").html(
+                        '<option disabled selected value="">Select Sub-Sub-Area</option>');
                 }
             })
         });

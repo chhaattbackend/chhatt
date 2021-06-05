@@ -59,7 +59,7 @@
                             @forelse ($agentareas as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ optional($item->agent)->name }}</td>
+                                    <td>{{ optional($item->agent->user)->name }}</td>
                                     <td>{{ optional($item->areaOne)->name }}</td>
 
                                     <td>

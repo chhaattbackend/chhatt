@@ -306,17 +306,18 @@ class PropertyController extends Controller
             $area_two_id = AreaTwo::where('id', $area_three->area_two_id)->first()->id;
         }
 
+        $platform = 'Api | '. $user->email;
+
         // dd($area_two_id);
         // dd($user->id);
-        $property = Property::create($request->except('area_one_id', 'area_two_id', 'area_three_id', 'user_id', 'images', 'latitude', 'longitude') + [
+        $property = Property::create($request->except('area_one_id', 'area_two_id', 'area_three_id', 'user_id', 'images', 'latitude', 'longitude','platform') + [
             'area_one_id' => $area_one_id,
             'area_two_id' => $area_two_id,
             'area_three_id' => $area_three_id,
             'user_id' => $user->id,
             'latitude' => $latitude,
             'longitude' => $longitude,
-
-
+            'platform'=>$platform,
         ]);
 
 

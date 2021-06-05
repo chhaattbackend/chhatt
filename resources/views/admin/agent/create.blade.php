@@ -10,30 +10,30 @@
         }
 
         /* .select2-container--default .select2-selection--multiple .select2-selection__choice {
-                        background-color: #13547a !important;
-                        border: 1px solid #aaa;
-                        border-radius: 4px !important;
-                        box-sizing: border-box !important;
-                        display: inline-block !important;
-                        margin-left: 5px !important;
-                        margin-top: 5px !important;
-                        padding: 0;
-                        padding-left: 20px !important;
-                        position: relative !important;
-                        max-width: 100% !important;
-                        overflow: hidden !important;
-                        text-overflow: ellipsis !important;
-                        vertical-align: bottom !important;
-                        white-space: nowrap !important;
-                    } */
+                            background-color: #13547a !important;
+                            border: 1px solid #aaa;
+                            border-radius: 4px !important;
+                            box-sizing: border-box !important;
+                            display: inline-block !important;
+                            margin-left: 5px !important;
+                            margin-top: 5px !important;
+                            padding: 0;
+                            padding-left: 20px !important;
+                            position: relative !important;
+                            max-width: 100% !important;
+                            overflow: hidden !important;
+                            text-overflow: ellipsis !important;
+                            vertical-align: bottom !important;
+                            white-space: nowrap !important;
+                        } */
 
         /* .select2-container--default .select2-selection--multiple .select2-selection__choice {
-                        background-color: #15599e !important;
-                        border-color: #006fe6 !important;
-                        color: #ffffff;
-                        padding: 0px 10px;
-                        margin-top: 0.31rem;
-                    } */
+                            background-color: #15599e !important;
+                            border-color: #006fe6 !important;
+                            color: #ffffff;
+                            padding: 0px 10px;
+                            margin-top: 0.31rem;
+                        } */
 
         .select2-selection {
             height: auto !important;
@@ -101,7 +101,8 @@
                                     <div class="col-sm-6">
                                         <select required class="form-control" name="user_id" id="user_id">
                                             @foreach ($users as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }} - {{ optional($item->agency)->name }} - ({{ $item->phone }})</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                                    ({{ $item->phone }})</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -125,13 +126,17 @@
                                     <div class="col-sm-6">
 
                                         @foreach ($speciality as $item)
-                                        <div class="col-sm-6">
-
-                                            <input type="checkbox" value="{{ $item->id }}" name="speciality[]">
-                                            <label style="padding-right: 10px" for="">{{ $item->name }}</label>
-                                        </div>
+                                            <div class="col-sm-12 @error('speciality') is-invalid @enderror">
+                                                <input type="checkbox" value="{{ $item->id }}" name="speciality[]">
+                                                <label style="padding-left: 5px" for="">{{ $item->name }}</label>
+                                            </div>
                                         @endforeach
                                     </div>
+                                    @error('speciality')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
 
                                 </div>
 
