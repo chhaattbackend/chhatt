@@ -51,10 +51,10 @@ class PropertyController extends Controller
     {
 
         if (!$request->keyword) {
-            
+
             $properties = Property::orderBy('created_at', 'desc')->paginate(25);
         } else {
-            
+
             $seacrh = $request->keyword;
             $properties = Property::where('id', '!=', null)->orderBy('updated_at', 'desc');
 
@@ -129,7 +129,10 @@ class PropertyController extends Controller
             $marker = 1;
         }
 
-       $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]); 
+
+        
+
+       $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]);
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
