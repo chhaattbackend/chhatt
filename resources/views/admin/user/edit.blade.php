@@ -50,7 +50,7 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Firebase</label>
                                     <div class="col-sm-6">
-                                        <input value="{{ $user->firebase_id }}" required type="text" name="firebase_id"
+                                        <input value="{{ $user->firebase_id }}"  type="text" name="firebase_id"
                                             class="form-control">
                                     </div>
 
