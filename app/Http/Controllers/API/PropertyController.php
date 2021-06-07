@@ -161,6 +161,7 @@ class PropertyController extends Controller
             ->orWhere('property_for','like','%'.$request->search.'%')
             ->orWhere('property_type','like','%'.$request->search.'%')
             ->orWhere('description','like','%'.$request->search.'%')
+            ->orWhere('id',$request->search)
             ->orWhere('bath','like','%'.$request->search.'%')
             ->orWhereHas('areaOne', function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%');
