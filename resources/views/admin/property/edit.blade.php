@@ -231,6 +231,8 @@
                                             </option>
                                             <option @if ($property->type == 'Commercial') selected @endif value="Commercial">Commercial
                                             </option>
+                                            <option @if ($property->type == 'Industrial') selected @endif value="Industrial">Industrial
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
