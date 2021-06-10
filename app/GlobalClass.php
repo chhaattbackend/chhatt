@@ -56,7 +56,7 @@ class GlobalClass extends Model
         } else if ($length >= 4 && $length <= 5) {
             return round($amount / 1000, 2) . ' K';
         } else {
-            return 0;
+            return null;
         }
     }
 

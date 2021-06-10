@@ -118,7 +118,7 @@
                                             <option disabled selected value="">Select User</option>
                                             @foreach ($users as $item)
                                                 <option @if ($property->user_id == $item->id) selected @endif value="{{ $item->id }}">
-                                                    {{ $item->name }}</option>
+                                                    {{ $item->name }} - {{ $item->phone }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -230,6 +230,8 @@
                                             <option @if ($property->type == 'Residential') selected @endif value="Residential">Residential
                                             </option>
                                             <option @if ($property->type == 'Commercial') selected @endif value="Commercial">Commercial
+                                            </option>
+                                            <option @if ($property->type == 'Industrial') selected @endif value="Industrial">Industrial
                                             </option>
                                         </select>
                                     </div>

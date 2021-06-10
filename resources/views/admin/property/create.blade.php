@@ -293,6 +293,8 @@
 
                                             <option value="Residential">Residential</option>
                                             <option value="Commercial">Commercial</option>
+                                            <option value="Industrial">Industrial</option>
+
                                         </select>
                                     </div>
                                 </div>

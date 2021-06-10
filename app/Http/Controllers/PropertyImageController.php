@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\GlobalClass;
+use App\Property;
 use App\PropertyImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use function GuzzleHttp\Promise\all;
 
@@ -12,9 +14,11 @@ class PropertyImageController extends Controller
 {
 
     public $globalclass;
+    public $marker;
 
-    public function __construct(){
-        $this->globalclass=new GlobalClass;
+    public function __construct()
+    {
+        $this->globalclass = new GlobalClass;
     }
     /**
      * Display a listing of the resource.
@@ -78,7 +82,41 @@ class PropertyImageController extends Controller
      */
     public function update(Request $request, PropertyImage $propertyImage)
     {
-        $this->globalclass->storeMultipleS3($request->file('images'),'properties',$request->property_id);
+        // $this->globalclass->storeMultipleS3($request->file('images'),'properties',$request->property_id);
+
+        $property = Property::find($request->property_id);
+        if ($property->type == 'Residential') {
+            $this->marker = 4;
+        }
+        if ($property->type == 'Commercial') {
+            $this->marker = 3;
+        }
+        if ($property->type == 'Industrial') {
+            $this->marker = 1;
+        }
+
+        if ($request->hasFile('images')) {
+            $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
+        } else {
+
+
+            if (count($property->images) == 0) {
+                
+                $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $property->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker' . $this->marker . '.png%7C' . $property->latitude . ',' . $property->longitude . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+
+                $filename = 'marker' . time() . 'png';
+
+                Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
+                PropertyImage::create([
+                    'property_id' => $property->id,
+                    'name' => 'StaticMap/' . $filename,
+                    'sort_order' => 9
+                ]);
+
+
+            }
+
+        }
 
         return redirect()->back();
     }
@@ -91,7 +129,7 @@ class PropertyImageController extends Controller
      */
     public function destroy($id)
     {
-        $propertyImage=PropertyImage::find($id);
+        $propertyImage = PropertyImage::find($id);
         $propertyImage->delete();
         return redirect()->back();
     }

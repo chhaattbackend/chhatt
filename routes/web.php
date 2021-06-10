@@ -38,6 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
+    Route::get('test1', function () {
+        return view('admin.user.index1');
+    });
     Route::resource('users', 'UserController');
     Route::get('/userprofile', 'UserController@profile')->name('user.profile');
     Route::post('saveimage', 'UserController@save_image');

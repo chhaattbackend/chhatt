@@ -51,10 +51,10 @@ class PropertyController extends Controller
     {
 
         if (!$request->keyword) {
-            
+
             $properties = Property::orderBy('created_at', 'desc')->paginate(25);
         } else {
-            
+
             $seacrh = $request->keyword;
             $properties = Property::where('id', '!=', null)->orderBy('updated_at', 'desc');
 
@@ -129,8 +129,22 @@ class PropertyController extends Controller
             $marker = 1;
         }
 
-       $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]); 
-         
+       $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]);
+        if ($request->hasFile('images')) {
+            $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
+
+        } else {
+            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+
+            $filename = 'marker' . time() . 'png';
+            
+            Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
+            PropertyImage::create([
+                'property_id' => $property->id,
+                'name' => 'StaticMap/' . $filename,
+                'sort_order' => 9
+            ]);
+        }
         return redirect()->route('properties.index');
     }
 

@@ -121,3 +121,6 @@ Route::get('newsletter', function (Request $request) {
         'success' => true
     ]);
 });
+
+
+Route::get('getName', 'API\AgentController@getName');
