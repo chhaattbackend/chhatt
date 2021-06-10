@@ -94,7 +94,8 @@
             text-shadow: 3px 3px 4px #e8e8e8;
             text-transform: capitalize;
             transition: transform .3s;
-            transform: scale(1.1);
+            transform: scale(1.0
+            );
         }
 
         .info-box {
