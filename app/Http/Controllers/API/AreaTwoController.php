@@ -17,6 +17,11 @@ class AreaTwoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function index(Request $request)
     {
         $areatwos = AreaTwo::with(['area_one'])->get();

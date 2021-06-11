@@ -16,7 +16,24 @@ use PharIo\Manifest\Email;
 |
 */
 
-// -------------------------------------------------Custom Update Routes-----------------------------------------------------------
+
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('register', 'JWTAuthController@register');
+    Route::post('login', 'JWTAuthController@login');
+    Route::post('logout', 'JWTAuthController@logout');
+    Route::post('refresh', 'JWTAuthController@refresh');
+    Route::get('profile', 'ProfileController@profile');
+
+    // -------------------------------------------------Custom Update Routes-----------------------------------------------------------
 Route::get('/actioncheck','API\AgencyController@actioncheck');
 Route::put('agencies/update', 'API\AgencyController@update');
 Route::put('agentspecialities/update','API\AgentSpecialityController@update');
@@ -38,16 +55,7 @@ Route::put('projects/update', 'API\ProjectController@update');
 
 // -------------------------------------------------End Custom Update Routes-----------------------------------------------------------
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::get('user/login', 'API\UserController@login');
 
-
-Route::get('agencies/agencyall','API\AgencyController@agencyall')->name('agencies.agencyall');
-Route::get('users/find','API\UserController@find')->name('users.find');
-Route::get('allareas','API\AreaOneController@allareas')->name('allareas');
-Route::get('mainsearch','API\AreaOneController@mainsearch')->name('mainsearch');
 
 // --------------------------------------------------------Resources-----------------------------------------------------------
 Route::resource('users', 'API\UserController');
@@ -85,7 +93,6 @@ Route::resource('projects', 'API\ProjectController');
 
 // ---------------------------End Project Routes-----------------------------------------
 
-
 // --------------------------Property Routes-------------------------------------------
 
 Route::get('properties/search', 'API\PropertyController@search')->name('properties.search');
@@ -99,6 +106,27 @@ Route::get('propertyimages/delete/{id}', 'API\PropertyImageController@destroy')-
 Route::resource('propertysocials', 'API\PropertySocialController');
 
 // --------------------------End Property Routes-------------------------------------------
+Route::get('agencies/agencyall','API\AgencyController@agencyall')->name('agencies.agencyall');
+Route::get('users/find','API\UserController@find')->name('users.find');
+Route::get('allareas','API\AreaOneController@allareas')->name('allareas');
+Route::get('mainsearch','API\AreaOneController@mainsearch')->name('mainsearch');
+
+Route::get('user/login', 'API\UserController@login');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

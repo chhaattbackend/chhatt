@@ -23,10 +23,7 @@ class PropertyController extends Controller
 {
     public $globalclass;
     public $marker;
-    public function __construct()
-    {
-        $this->globalclass = new GlobalClass;
-    }
+    
 
     function array_push_assoc($array, $key, $value)
     {
@@ -218,6 +215,11 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function index()
     {
         $properties = Property::orderBy('created_at', 'desc')->paginate(25);

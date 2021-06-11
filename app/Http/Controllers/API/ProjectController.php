@@ -19,6 +19,11 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function index()
     {
         $projects = Project::orderBy('created_at', 'desc')->paginate(25);
@@ -121,7 +126,7 @@ class ProjectController extends Controller
 
         if(isset($request->clickapi)){
 
-            
+
             Project::where('id',$request->id)->increment('project_click');
 
         }

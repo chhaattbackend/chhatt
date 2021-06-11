@@ -19,6 +19,11 @@ class ProjectBuyerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function index()
     {
         $projectbuyers=ProjectBuyer::orderBy('created_at','desc')->paginate(25);

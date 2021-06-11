@@ -14,6 +14,11 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function index()
     {
         //
@@ -24,6 +29,7 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         //

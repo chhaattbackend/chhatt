@@ -22,6 +22,11 @@ use Illuminate\Support\Facades\Session;
 class AgencyController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function agencyall()
     {
         return AgencyShort::collection(Agency::all());

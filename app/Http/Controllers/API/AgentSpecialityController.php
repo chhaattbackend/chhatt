@@ -13,11 +13,17 @@ use Illuminate\Http\Request;
 
 class AgentSpecialityController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function index(Request $request)
     {
         $agentspecialities = AgentSpeciality::orderBy('created_at','desc')->paginate(25);

@@ -21,8 +21,10 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
     }
+   
 
     /**
      * Show the application dashboard.

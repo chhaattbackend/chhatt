@@ -18,10 +18,15 @@ class ProjectSaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function index()
     {
-            $projectsales = ProjectSale::orderBy('created_at','desc')->paginate(25);
-            return new ProjectSaleCollection($projectsales);
+        $projectsales = ProjectSale::orderBy('created_at', 'desc')->paginate(25);
+        return new ProjectSaleCollection($projectsales);
     }
 
     /**
@@ -31,10 +36,10 @@ class ProjectSaleController extends Controller
      */
     public function create()
     {
-            $projects = Project::all();
-            $shops=ProjectShop::all();
-            $buyers=ProjectBuyer::all();
-            return view('admin.project_sales.create',compact('projects','shops','buyers'));
+        $projects = Project::all();
+        $shops = ProjectShop::all();
+        $buyers = ProjectBuyer::all();
+        return view('admin.project_sales.create', compact('projects', 'shops', 'buyers'));
     }
 
     /**
@@ -43,7 +48,7 @@ class ProjectSaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'project_id' => 'required',
@@ -54,7 +59,7 @@ class ProjectSaleController extends Controller
         $data = ProjectSale::create($request->all());
 
         return response()->json([
-            'success'=>true
+            'success' => true
         ]);
     }
 
@@ -75,14 +80,14 @@ class ProjectSaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
-            $projectsale = ProjectSale::findOrfail($id);
-            $shops=ProjectShop::all();
-            $projects = Project::all();
-            $buyers=ProjectBuyer::all();
+        $projectsale = ProjectSale::findOrfail($id);
+        $shops = ProjectShop::all();
+        $projects = Project::all();
+        $buyers = ProjectBuyer::all();
 
-            return view('admin.project_sales.edit',compact('projectsale','projects','shops','buyers'));
+        return view('admin.project_sales.edit', compact('projectsale', 'projects', 'shops', 'buyers'));
     }
 
     /**
@@ -95,10 +100,10 @@ class ProjectSaleController extends Controller
     public function update(Request $request, $id)
     {
         // ProjectSale::where('id',$id)->update($request->all());
-        $projectsale=ProjectSale::find($id);
+        $projectsale = ProjectSale::find($id);
         $projectsale->update($request->all());
         return response()->json([
-            'success'=>true
+            'success' => true
         ]);
     }
 
@@ -113,6 +118,6 @@ class ProjectSaleController extends Controller
         $data = ProjectSale::findOrfail($id);
         $data->delete();
 
-        return redirect('/projectsales')->with('message','Deleted');
+        return redirect('/projectsales')->with('message', 'Deleted');
     }
 }

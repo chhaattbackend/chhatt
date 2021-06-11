@@ -15,6 +15,11 @@ class StateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function index(Request $request)
     {
         $states = State::orderBy('created_at','desc')->paginate(25);

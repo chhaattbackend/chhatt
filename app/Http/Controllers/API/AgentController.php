@@ -159,6 +159,11 @@ class AgentController extends Controller
      * @param  \App\Agency  $agency
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->guard = "api";
+    }
     public function destroy($id)
     {
         $item = Agent::find($id);
