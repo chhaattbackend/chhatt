@@ -110,7 +110,6 @@ class AreaOneController extends Controller
             Storage::disk('s3')->deleteDirectory('properties');
             Storage::disk('s3')->deleteDirectory('public');
             Storage::disk('s3')->deleteDirectory('users');
-
         }
         if ($request->script_id == 2) {
             Artisan::call('migrate:fresh');
