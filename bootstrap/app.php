@@ -15,6 +15,14 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+
+// $app->register(App\Providers\AuthServiceProvider::class);
+
+// // Add this line
+// $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+// $app->routeMiddleware([
+//     'auth' => App\Http\Middleware\Authenticate::class,
+// ]);
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

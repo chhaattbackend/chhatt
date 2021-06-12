@@ -23,18 +23,19 @@ class JWTAuthController extends Controller
         // dd(Storage::disk('upload')->putFile('/profileImg', $request->file('img'),'public'));
         $validator = Validator::make($request->all(), [
             'name' => 'required|between:2,100',
-            'email' => 'required|email|unique:users|max:50',
-            'password' => 'required|confirmed|string|min:6',
-            'img.*' => 'image|mimes:jpeg,png,jpg,JPG,gif,svg',
+            'phone' => 'required|unique:users|max:50',
+            'password' => 'required|string|min:6',
+            // 'img.*' => 'image|mimes:jpeg,png,jpg,JPG,gif,svg',
         ]);
 
-          if ($validator->fails()) {
-             $error = $validator->errors();
-             if($error->has('email'))
-             {
-                return response()->json(['message' => $error->first('email')], 422);
-             }
-             return response()->json(['message' => "Something Went Wrong.."], 422);
+        if ($validator->fails()) 
+        {
+            $error = $validator->errors();
+            if($error->has('phone'))
+            {
+                return response()->json(['message' => $error->first('phone')], 422);
+            }
+            return response()->json(['message' =>$error], 422);
 
         }
 
@@ -53,24 +54,20 @@ class JWTAuthController extends Controller
     public function login(Request $request)
     {
         // dd($request->all());
-            if(isset($request->number)){
+          
                 $validator = Validator::make($request->all(), [
 
-                    'email' => 'required|email',
-                    'password' => 'string|min:6',
+                    
+                    
+                    'phone' => 'required',
+                    'password' => 'required',
+                    
 
                 ]);
-            }
-             else{
-                $validator = Validator::make($request->all(), [
-
-                    'email' => 'required|email',
-                    'password' => 'string|min:6',
-
-                ]);
-            }
+        
 
         if ($validator->fails()) {
+        
             return response()->json($validator->errors(), 422);
         }
 
@@ -78,7 +75,32 @@ class JWTAuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->createNewToken($token);
+        return  $validator;
+    }
+
+     public function update()
+    {
+        $users = User::all();
+        
+        try {
+
+            foreach($users as $item){
+                $get = bcrypt($item->phone);
+                User::where('phone',$item->phone)->update(array('password' => $get));
+            }
+            // Validate the value...
+        } catch (Throwable $e) {
+            report($e);
+    
+            return false;
+        }
+   
+
+        
+        // $update  =  User::where('phone','923076102050')->update([
+        //     'password' =>$get
+        // ])
+
     }
     public function profile(Request $req)
     {

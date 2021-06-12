@@ -21,6 +21,8 @@ use PharIo\Manifest\Email;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -32,6 +34,8 @@ Route::group([
     Route::post('logout', 'JWTAuthController@logout');
     Route::post('refresh', 'JWTAuthController@refresh');
     Route::get('profile', 'ProfileController@profile');
+
+    Route::get('update', 'JWTAuthController@update');
 
     // -------------------------------------------------Custom Update Routes-----------------------------------------------------------
 Route::get('/actioncheck','API\AgencyController@actioncheck');
