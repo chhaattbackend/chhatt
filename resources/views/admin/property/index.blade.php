@@ -226,7 +226,6 @@
                                         $x = 'False';
                                     }
                                 @endphp
-
                                     {{ $x }}
                                 </td>
 

@@ -47,14 +47,59 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function propimageupdate()
+    {
+        $properties = Property::all();
+
+        foreach ($properties as $key => $item) {
+
+            $image = $item->images[0]->name;
+            $external_link = 'https://chhatt.s3.ap-south-1.amazonaws.com/properties/' . $image;
+            // dd($external_link);
+            if (@getimagesize($external_link)) {
+                $x = 'True';
+            } else {
+                // $x = 'False';
+                if ($item->id != null) {
+                    // dd($item->id);
+
+                    $marker = 1;
+                    if ($item->type == 'Residential') {
+                        $marker = 4;
+                    }
+                    if ($item->type == 'Commercial') {
+                        $marker = 3;
+                    }
+                    if ($item->type == 'Industrial') {
+                        $marker = 1;
+                    }
+                    $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $item->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker' . $marker . '.png%7C' . $item->latitude . ',' . $item->longitude . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+
+                    $filename = 'marker' . time() . 'png';
+
+                    Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
+                    $propertyImage = PropertyImage::find($item->id);
+                    $propertyImage->delete();
+
+                    PropertyImage::create([
+                        'property_id' => $item->id,
+                        'name' => 'StaticMap/' . $filename,
+                        'sort_order' => 9,
+                    ]);
+                }
+            }
+        }
+    }
+
     public function index(Request $request)
     {
 
-        
+
 
         if (!$request->keyword) {
 
-            $properties = Property::orderBy('created_at', 'desc')->paginate(25);
+            $properties = Property::orderBy('created_at', 'desc')->paginate(3);
         } else {
 
             $seacrh = $request->keyword;
@@ -76,9 +121,9 @@ class PropertyController extends Controller
                 $query->where('name', 'like', '%' . $seacrh . '%');
             })->orWhere('name', 'like', '%' . $seacrh . '%')
                 ->orWhere('type', 'like', '%' . $seacrh . '%')
-                ->orWhere('id',$seacrh)
+                ->orWhere('id', $seacrh)
                 ->orWhere('description', 'like', '%' . $seacrh . '%')
-                ->paginate(25)->setPath('');
+                ->paginate(3)->setPath('');
 
             $pagination = $properties->appends(array(
                 'keyword' => $request->keyword
@@ -89,7 +134,6 @@ class PropertyController extends Controller
         $area_two = AreaTwo::all();
 
         return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
-
     }
 
     /**
@@ -108,7 +152,7 @@ class PropertyController extends Controller
         $propertytype = PropertyType::all();
         $propertySocialTypes = SocialType::all();
         $propertySocialGroups = PropertyGroup::all();
-        return view('admin.property.create', compact(['users','city', 'area_one', 'area_two', 'area_three', 'propertyfor', 'propertytype', 'propertySocialTypes', 'propertySocialGroups']));
+        return view('admin.property.create', compact(['users', 'city', 'area_one', 'area_two', 'area_three', 'propertyfor', 'propertytype', 'propertySocialTypes', 'propertySocialGroups']));
     }
 
     /**
@@ -119,24 +163,23 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->platform = 'Web | '. auth()->user()->email;
+        $request->platform = 'Web | ' . auth()->user()->email;
         $marker = 1;
-        if($request->type == 'Residential'){
+        if ($request->type == 'Residential') {
             $marker = 4;
         }
-        if($request->type == 'Commercial'){
+        if ($request->type == 'Commercial') {
             $marker = 3;
         }
-        if($request->type == 'Industrial'){
+        if ($request->type == 'Industrial') {
             $marker = 1;
         }
 
-       $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]);
+        $property = Property::create($request->except('images', 'platform') + ['platform' => $request->platform]);
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
-
         } else {
-            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker' . $marker . '.png%7C' . $request->latitude . ',' . $request->longitude . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
             $filename = 'marker' . time() . 'png';
 
@@ -182,7 +225,7 @@ class PropertyController extends Controller
         $city = City::all();
         $link = url()->previous();
 
-       return view('admin.property.edit', compact(['city','property', 'users', 'area_one', 'area_two', 'area_three', 'propertyfor','link','propertytype','propertySocialTypes', 'propertySocialGroups']));
+        return view('admin.property.edit', compact(['city', 'property', 'users', 'area_one', 'area_two', 'area_three', 'propertyfor', 'link', 'propertytype', 'propertySocialTypes', 'propertySocialGroups']));
     }
 
     /**
@@ -197,13 +240,13 @@ class PropertyController extends Controller
 
         // @dd('wow');
         $marker = 1;
-        if($request->type == 'Residential'){
+        if ($request->type == 'Residential') {
             $marker = 4;
         }
-        if($request->type == 'Commercial'){
+        if ($request->type == 'Commercial') {
             $marker = 3;
         }
-        if($request->type == 'Industrial'){
+        if ($request->type == 'Industrial') {
             $marker = 1;
         }
 
@@ -215,7 +258,7 @@ class PropertyController extends Controller
         if ($request->hasFile('images')) {
             $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
         } else {
-            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker' . $marker . '.png%7C' . $request->latitude . ',' . $request->longitude . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
             $filename = 'marker' . time() . 'png';
             Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
