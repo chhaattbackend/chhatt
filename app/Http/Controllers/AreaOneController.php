@@ -105,37 +105,37 @@ class AreaOneController extends Controller
 
     public function samplecode(Request $request)
     {
-        if ($request->script_id == 1) {
-            Storage::disk('s3')->deleteDirectory('projects');
-            Storage::disk('s3')->deleteDirectory('properties');
-            Storage::disk('s3')->deleteDirectory('public');
-            Storage::disk('s3')->deleteDirectory('users');
+    //     if ($request->script_id == 1) {
+    //         Storage::disk('s3')->deleteDirectory('projects');
+    //         Storage::disk('s3')->deleteDirectory('properties');//pasha 
+    //         Storage::disk('s3')->deleteDirectory('public');
+    //         Storage::disk('s3')->deleteDirectory('users');   
+    //     }
+    //     if ($request->script_id == 2) {
+    //         Artisan::call('migrate:fresh');
+    //     }
+    //     if ($request->script_id == 3) {
+    //         $users=User::all();
+    //         foreach ($users as $user) {
+    //             $encodedSMS = urlencode($request->text);
 
-        }
-        if ($request->script_id == 2) {
-            Artisan::call('migrate:fresh');
-        }
-        if ($request->script_id == 3) {
-            $users=User::all();
-            foreach ($users as $user) {
-                $encodedSMS = urlencode($request->text);
+    //             $smsURL = "http://api.bizsms.pk/api-send-branded-sms.aspx?username=chhatt@bizsms.pk&pass=ch3att99&text=$encodedSMS&masking=CHHATT&destinationnum=92$user->phone&language=English%27";
+    //             $client = new Client();
+    //             $res = $client->get($smsURL);
+    //             echo $res->getStatusCode(); // 200
+    //             echo $res->getBody();
+    //         }
+    //     }
+    //     if ($request->script_id == 4) {
+    //         User::where('id','!=',null)->update(['role_id'=>20]);
+    //     }
+    //     if ($request->script_id == 5) {
+    //         LeadProject::where('id','!=',null)->update(['project_id'=>7]);
+    //         Lead::where('id','!=',null)->update(['phone'=>null]);
+    //         User::where('id','!=',null)->decrement('id');
+    //     }
 
-                $smsURL = "http://api.bizsms.pk/api-send-branded-sms.aspx?username=chhatt@bizsms.pk&pass=ch3att99&text=$encodedSMS&masking=CHHATT&destinationnum=92$user->phone&language=English%27";
-                $client = new Client();
-                $res = $client->get($smsURL);
-                echo $res->getStatusCode(); // 200
-                echo $res->getBody();
-            }
-        }
-        if ($request->script_id == 4) {
-            User::where('id','!=',null)->update(['role_id'=>20]);
-        }
-        if ($request->script_id == 5) {
-            LeadProject::where('id','!=',null)->update(['project_id'=>7]);
-            Lead::where('id','!=',null)->update(['phone'=>null]);
-            User::where('id','!=',null)->decrement('id');
-        }
-        dd('done');
+    //     dd('done');
 
 
     }

@@ -17,6 +17,10 @@ use PharIo\Manifest\Email;
 */
 
 // -------------------------------------------------Custom Update Routes-----------------------------------------------------------
+
+Route::prefix('3ACA9CFF3B54BC1B4D3F7E23214EE')->group(function () {
+
+
 Route::get('/actioncheck','API\AgencyController@actioncheck');
 Route::put('agencies/update', 'API\AgencyController@update');
 Route::put('agentspecialities/update','API\AgentSpecialityController@update');
@@ -35,6 +39,13 @@ Route::put('users/profileupdate', 'API\UserController@profileupdate');
 Route::post('users/profileimageupdate', 'API\UserController@profileimageupdate');
 Route::put('projects/update', 'API\ProjectController@update');
 
+
+
+///////////////////////umair work///////////////////////
+
+Route::get('/getagencies','API\AgencyController@actioncheck');
+
+///////////////////////umair work///////////////////////
 
 // -------------------------------------------------End Custom Update Routes-----------------------------------------------------------
 
@@ -124,3 +135,4 @@ Route::get('newsletter', function (Request $request) {
 
 
 Route::get('getName', 'API\AgentController@getName');
+});
