@@ -28,7 +28,7 @@ class JWTAuthController extends Controller
             // 'img.*' => 'image|mimes:jpeg,png,jpg,JPG,gif,svg',
         ]);
 
-        if ($validator->fails()) 
+        if ($validator->fails())
         {
             $error = $validator->errors();
             if($error->has('phone'))
@@ -54,20 +54,20 @@ class JWTAuthController extends Controller
     public function login(Request $request)
     {
         // dd($request->all());
-          
+
                 $validator = Validator::make($request->all(), [
 
-                    
-                    
+
+
                     'phone' => 'required',
                     'password' => 'required',
-                    
+
 
                 ]);
-        
+
 
         if ($validator->fails()) {
-        
+
             return response()->json($validator->errors(), 422);
         }
 
@@ -75,13 +75,13 @@ class JWTAuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return  $validator;
+        return $this->createNewToken($token);
     }
 
      public function update()
     {
         $users = User::all();
-        
+
         try {
 
             foreach($users as $item){
@@ -91,12 +91,12 @@ class JWTAuthController extends Controller
             // Validate the value...
         } catch (Throwable $e) {
             report($e);
-    
+
             return false;
         }
-   
 
-        
+
+
         // $update  =  User::where('phone','923076102050')->update([
         //     'password' =>$get
         // ])
