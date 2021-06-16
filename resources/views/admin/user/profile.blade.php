@@ -598,7 +598,7 @@
                             {{-- --------------------------- --}}
 
                             <form class="profileform" id="user_save_profile_form" enctype="multipart/form-data">
-                                <meta name="csrf-token" content="{{ csrf_token() }}" />
+                                <meta hidden name="csrf-token" content="{{ csrf_token() }}" />
 
 
                                 @if (Auth::user()->dp == null)
@@ -884,32 +884,32 @@
     {{-- example --}}
 
     <script>
-        function doAfterSelectImage(input) {
-            // console.log(input)
-            var image = document.getElementById('profile_pic').files[0];
-            var image_name = image.name;
-            var image_extention = image_name.split('.').pop().toLowerCase();
-            // console.log("metod");
+        // function doAfterSelectImage(input) {
+        //     // console.log(input)
+        //     var image = document.getElementById('profile_pic').files[0];
+        //     var image_name = image.name;
+        //     var image_extention = image_name.split('.').pop().toLowerCase();
+        //     // console.log("metod");
 
-            if (jQuery.inArray(image_extention, ['png', 'jpg', 'jpeg']) == -
-                1) {
-                alert('Invalid file type');
-            } else {
+        //     if (jQuery.inArray(image_extention, ['png', 'jpg', 'jpeg']) == -
+        //         1) {
+        //         alert('Invalid file type');
+        //     } else {
 
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#image_user').css('background-image', 'url(' + e.target.result + ')');
-                        $('#dpuser').prop('src', e.target.result);
+        //         if (input.files && input.files[0]) {
+        //             var reader = new FileReader();
+        //             reader.onload = function(e) {
+        //                 $('#image_user').css('background-image', 'url(' + e.target.result + ')');
+        //                 $('#dpuser').prop('src', e.target.result);
 
-                        // $("#image_user").attr("src", '{{ asset('images/userdp/pic') }}' );
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                    uploadUserProfileImage();
-                }
-            }
-            // readURL(input);
-        }
+        //                 // $("#image_user").attr("src", '{{ asset('images/userdp/pic') }}' );
+        //             };
+        //             reader.readAsDataURL(input.files[0]);
+        //             uploadUserProfileImage();
+        //         }
+        //     }
+        //     // readURL(input);
+        // }
 
         // function readURL(input) {
         //     var image = document.getElementById('profile_pic').files[0];

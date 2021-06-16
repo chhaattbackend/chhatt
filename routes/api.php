@@ -17,6 +17,16 @@ use PharIo\Manifest\Email;
 */
 
 // -------------------------------------------------Custom Update Routes-----------------------------------------------------------
+Route::get('properties/search', 'API\PropertyController@search')->name('properties.search');
+Route::get('/getagencies','API\AgencyController@actioncheck');
+Route::get('agencies/agencyall','API\AgencyController@agencyall')->name('agencies.agencyall');
+Route::get('allareas','API\AreaOneController@allareas')->name('allareas');
+Route::get('properties/related', 'API\PropertyController@related')->name('properties.related');
+
+
+
+
+
 
 Route::prefix('3ACA9CFF3B54BC1B4D3F7E23214EE')->group(function () {
 
@@ -43,7 +53,6 @@ Route::put('projects/update', 'API\ProjectController@update');
 
 ///////////////////////umair work///////////////////////
 
-Route::get('/getagencies','API\AgencyController@actioncheck');
 
 ///////////////////////umair work///////////////////////
 
@@ -55,9 +64,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('user/login', 'API\UserController@login');
 
 
-Route::get('agencies/agencyall','API\AgencyController@agencyall')->name('agencies.agencyall');
 Route::get('users/find','API\UserController@find')->name('users.find');
-Route::get('allareas','API\AreaOneController@allareas')->name('allareas');
 Route::get('mainsearch','API\AreaOneController@mainsearch')->name('mainsearch');
 
 // --------------------------------------------------------Resources-----------------------------------------------------------
@@ -99,11 +106,9 @@ Route::resource('projects', 'API\ProjectController');
 
 // --------------------------Property Routes-------------------------------------------
 
-Route::get('properties/search', 'API\PropertyController@search')->name('properties.search');
 Route::post('properties/unformattedproperty', 'API\PropertyController@unformatedProperty');
 Route::get('properties/favproperty', 'API\PropertyController@favproperty');
-Route::get('properties/aaa', 'API\PropertyController@store')->name('properties.store');
-Route::get('properties/related', 'API\PropertyController@related')->name('properties.related');
+// Route::get('properties/aaa', 'API\PropertyController@store')->name('properties.store');
 Route::resource('properties', 'API\PropertyController');
 Route::resource('propertyimages', 'API\PropertyImageController');
 Route::get('propertyimages/delete/{id}', 'API\PropertyImageController@destroy')->name('propertyimages.delete');
