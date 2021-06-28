@@ -112,7 +112,8 @@ class AgencyController extends Controller
         $agentproperties = 0;
 
         foreach($agents as $agent) {
-            $agentproperties += count($agent->properties);
+            $agentproperties += count($agent->user->properties);
+
 
         }
         $agencyproperties=$agency->properties->count();
@@ -169,7 +170,7 @@ class AgencyController extends Controller
     public function destroy($id)
     {
         if(auth()->user()->email == 'chhattofficial@chhatt.com'){
-            
+
             $item = Agency::find($id);
             $item->delete();
         }

@@ -1,25 +1,38 @@
 /* width */
+
+
 /* ::-webkit-scrollbar {
             width: 10px;
 
         } */
 
+
 /* Track */
+
+
 /* ::-webkit-scrollbar-track {
             background: rgba(19, 74, 104, 0.357)
         } */
 
+
 /* Handle */
+
+
 /* ::-webkit-scrollbar-thumb {
             background: whitesmoke
         } */
 
+
 /* Handle on hover */
+
+
 /* ::-webkit-scrollbar-thumb:hover {
             background: #555;
         } */
 
+
 /* width */
+
 *::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -33,7 +46,6 @@
     background-color: #015982;
     border-radius: 50px;
     border: 1px solid whitesmoke;
-
 }
 
 .sidebar::-webkit-scrollbar {
@@ -50,9 +62,9 @@
     border: 1px solid #f1f7fa2a;
 }
 
-.card-header > .card-tools .input-group,
-.card-header > .card-tools .nav,
-.card-header > .card-tools .pagination {
+.card-header>.card-tools .input-group,
+.card-header>.card-tools .nav,
+.card-header>.card-tools .pagination {
     margin-bottom: 0 !important;
     margin-top: 0 !important;
 }
@@ -82,6 +94,7 @@
     background-image: linear-gradient(0deg, #09103f -57%, #80d0c7 250%);
 }
 
+
 /* .thb thead {
             background-image: linear-gradient(121deg, #13547a 1%, #80d0c7 250%);
             color: white
@@ -95,6 +108,8 @@
         .thb a {
             padding-left: 30%
         } */
+
+
 /* .table{
             table-layout: fixed;
         } */
@@ -119,12 +134,7 @@
 
 .heading {
     /* background-image: linear-gradient(121deg, #13547a 1%, #80d0c7 250%); */
-    background-image: linear-gradient(
-        148deg,
-        #13547a 32%,
-        #0d2e42c9 59%,
-        transparent 60%
-    );
+    background-image: linear-gradient( 148deg, #13547a 32%, #0d2e42c9 59%, transparent 60%);
     color: white;
 }
 
@@ -137,16 +147,15 @@
     border-color: #ef772100 !important;
     padding: 15px;
     border-radius: 15px;
-   box-shadow:
-   inset 0 0 50px #fff,      /* inner white */
-   inset 20px 0 80px #fff,   /* inner left magenta short */
-   inset -20px 0 80px #fff,  /* inner right cyan short */
-   inset 20px 0 300px #fff,  /* inner left magenta broad */
-   inset -20px 0 300px #fff, /* inner right cyan broad */
-   0 0 2px #13547a,            /* outer white */
-   0px 0 10px #13547a,        /* outer left magenta */
-   0px 0 10px #13547a;
-   color: #000;
+    box-shadow: inset 0 0 50px #fff, /* inner white */
+    inset 20px 0 80px #fff, /* inner left magenta short */
+    inset -20px 0 80px #fff, /* inner right cyan short */
+    inset 20px 0 300px #fff, /* inner left magenta broad */
+    inset -20px 0 300px #fff, /* inner right cyan broad */
+    0 0 2px #13547a, /* outer white */
+    0px 0 10px #13547a, /* outer left magenta */
+    0px 0 10px #13547a;
+    color: #000;
 }
 
 .agencyheading h1 {
@@ -166,18 +175,14 @@
 .mbg {
     /* background-image: linear-gradient(121deg, #13547a 16%, #80d0c7 284%); */
     /* background-image: linear-gradient(221deg, #13547a 1%, #80d0c7 250%); */
-
     /* background-image: linear-gradient(-45deg, #032b43 0%, #13547a 100%); */
     /* background-image: linear-gradient(121deg, #13547a 16%, #80d0c7 284%); */
     /* background-image: linear-gradient(160deg, #0c1442 14%, #80d0c7 159%); */
-
     /* background: url('https://cdn.pixabay.com/photo/2014/12/15/17/16/night-sky-569319_960_720.jpg')  !important; */
-
     /* background-image: url("{{ asset('images/sliderbg.jpg') }}"); */
     /* background-repeat: no-repeat;
     background-size: 400px 100%;
     animation: gradient 5s ease infinite; */
-
     /* background: linear-gradient(160deg, #0c1442, #032b43, #235161, #23d5ab); */
     /* background: linear-gradient(-120deg, #021B79, #0575E6, #205E9B); */
     /* background: linear-gradient(
@@ -188,7 +193,7 @@
         #33556f 80%
     ); */
     /* background: linear-gradient( 154deg, #fff 15%, #000632 37%, #22567e 60%, #000632 80% ); */
-    background: linear-gradient( 77deg, #22567e 11%, #000632 37%, #22567e 55%, #000632 75% );
+    background: linear-gradient( 77deg, #22567e 11%, #000632 37%, #22567e 55%, #000632 75%);
     /* background: linear-gradient(77deg, #003087, #009cde, #012169); */
     /* background: linear-gradient(77deg,#c4c9cf -340%, #012169 115%); */
     background-size: 400% 400%;
@@ -283,7 +288,7 @@ input[type="checkbox"]:focus {
     display: none;
 }
 
-.switch input + span {
+.switch input+span {
     width: 48px;
     height: 28px;
     border-radius: 14px;
@@ -294,15 +299,15 @@ input[type="checkbox"]:focus {
     box-shadow: 0 8px 16px -1px rgba(255, 70, 81, 0.2);
 }
 
-.switch input + span:before,
-.switch input + span:after {
+.switch input+span:before,
+.switch input+span:after {
     content: "";
     display: block;
     position: absolute;
     transition: all 0.3s ease;
 }
 
-.switch input + span:before {
+.switch input+span:before {
     top: 5px;
     left: 5px;
     width: 18px;
@@ -311,7 +316,7 @@ input[type="checkbox"]:focus {
     border: 5px solid #fff;
 }
 
-.switch input + span:after {
+.switch input+span:after {
     top: 5px;
     left: 32px;
     width: 6px;
@@ -322,16 +327,16 @@ input[type="checkbox"]:focus {
     opacity: 0;
 }
 
-.switch input + span:active {
+.switch input+span:active {
     transform: scale(0.92);
 }
 
-.switch input:checked + span {
+.switch input:checked+span {
     background: #48ea8b;
     box-shadow: 0 8px 16px -1px rgba(72, 234, 139, 0.2);
 }
 
-.switch input:checked + span:before {
+.switch input:checked+span:before {
     width: 0px;
     border-radius: 3px;
     margin-left: 27px;
@@ -339,21 +344,25 @@ input[type="checkbox"]:focus {
     background: #fff;
 }
 
-.switch input:checked + span:after {
+.switch input:checked+span:after {
     -webkit-animation: blobChecked 0.35s linear forwards 0.2s;
     animation: blobChecked 0.35s linear forwards 0.2s;
 }
 
-.switch input:not(:checked) + span:before {
+.switch input:not(:checked)+span:before {
     -webkit-animation: blob 0.85s linear forwards 0.2s;
     animation: blob 0.85s linear forwards 0.2s;
 }
+
 
 /* .select2-selection{
             height: 39px !important;
         } */
 
+
 /* selection box style */
+
+
 /* .select2-container--default.select2-container--open .select2-selection--single {
             border-color: #19599e !important;
         }
@@ -409,6 +418,7 @@ input[type="checkbox"]:focus {
             border-top-right-radius: 11px !important;
         } */
 
+
 /* selection box style */
 
 input[type="search"] {
@@ -422,6 +432,7 @@ input[type="search"] {
 .select2-container .select2-selection--single {
     height: 37px !important;
 }
+
 .specialbutton {
     color: black;
     background-color: white;
@@ -430,7 +441,6 @@ input[type="search"] {
     box-shadow: none;
 }
 
-.red{
-color: yellow;
-
+.red {
+    color: yellow;
 }

@@ -123,7 +123,7 @@
                                                     <td>
                                                         {{++$key}}
                                                     </td>
-                                                    <td  >
+                                                    <td>
                                                         <img class="form-img"
                                                             src="https://chhatt.s3.ap-south-1.amazonaws.com/properties/{{ $item->name }}">
 

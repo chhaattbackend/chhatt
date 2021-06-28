@@ -201,7 +201,7 @@
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>Priority</th>
-                            {{-- <th>Advertised</th> --}}
+                            {{-- <th>Advertised</th> --}} 
                             <th>Edit Image</th>
 
                             <th>Action</th>

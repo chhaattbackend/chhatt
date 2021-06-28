@@ -59,7 +59,7 @@ class PropertyImageController extends Controller
      */
     public function show(PropertyImage $propertyImage)
     {
-        //
+        
     }
 
     /**
@@ -101,7 +101,7 @@ class PropertyImageController extends Controller
 
 
             if (count($property->images) == 0) {
-                
+
                 $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $property->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker' . $this->marker . '.png%7C' . $property->latitude . ',' . $property->longitude . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
                 $filename = 'marker' . time() . 'png';

@@ -478,7 +478,7 @@ Updated By: ' . auth()->user()->name . '
 Updated At: ' . date("h:m A d-M-y"),
             ]);
 
-            return response()->json([
+            return response()->json([ 
                 'desc' => $request->desc_val . '
 Updated By: ' . auth()->user()->name . '
 Updated At: ' . date("h:m A d-M-y")
