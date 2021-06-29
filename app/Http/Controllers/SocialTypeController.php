@@ -9,10 +9,10 @@ class SocialTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index() 
+    public function index()
     {
         $socialTypes = SocialType::paginate(25);
         return view('admin.social_type.index', compact('socialTypes'));
@@ -20,7 +20,7 @@ class SocialTypeController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -30,7 +30,7 @@ class SocialTypeController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
@@ -42,18 +42,18 @@ class SocialTypeController extends Controller
 
     /**
      * Display the specified resource.
-     * 
+     *
      * @param \App\SocialType $socialType
      * @return \Illuminate\Http\Response
      */
-    public function show(SocialType $socialType) 
+    public function show(SocialType $socialType)
     {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param \App\SocialType $socialType
      * @return \Illuminate\Http\Response.
@@ -65,7 +65,7 @@ class SocialTypeController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param \App\SocialType $socialType
      * @return \Illuminate\Http\Response
@@ -77,14 +77,15 @@ class SocialTypeController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * 
+     *
      * @param \App\SocialType $socialType
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = SocialType::find($id);
         $item->delete();
+    }
         return redirect()->back();
     }
 }

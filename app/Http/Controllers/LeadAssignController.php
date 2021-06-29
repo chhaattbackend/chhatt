@@ -128,8 +128,10 @@ class LeadAssignController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $leadAssign = LeadAssign::find($id);
         $leadAssign->delete();
+        }
         return redirect()->back();
     }
     public function users($id)

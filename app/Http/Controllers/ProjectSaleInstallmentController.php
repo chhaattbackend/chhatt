@@ -96,10 +96,10 @@ class ProjectSaleInstallmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $data = ProjectSaleInstallment::findOrfail($id);
         $data->delete();
-
+    }
         return redirect('/ProjectSaleInstallments')->with('message','Deleted');
     }
 }

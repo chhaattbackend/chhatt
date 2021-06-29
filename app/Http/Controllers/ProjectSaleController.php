@@ -115,10 +115,10 @@ class ProjectSaleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $data = ProjectSale::findOrfail($id);
         $data->delete();
-
+    }
         return redirect('/projectsales')->with('message', 'Deleted');
     }
 }

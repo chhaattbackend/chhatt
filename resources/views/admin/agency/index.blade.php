@@ -8,8 +8,11 @@
                     <h1>Agencies</h1>
                 </div>
                 <div class="offset-sm-4  col-sm-2">
+                    @if (auth()->user()->role->name == 'Administrator')
+
                     <h1 class="float-sm-right"><span  style="background-image: linear-gradient(121deg, #13547a 1%, #80d0c7 250%);color: white" class="badge badge-pill">{{ $agencies->total() }}</span></h1>
                 </div>
+                @endif
 
             </div>
         </div><!-- /.container-fluid -->
@@ -242,7 +245,10 @@
                         </tbody>
                     </table>
                     <div class="align-right paginationstyle">
+                        @if (auth()->user()->role->name == 'Administrator')
+
                         {{ $agencies->links() }}
+                        @endif
                     </div>
                 </div>
             </div>

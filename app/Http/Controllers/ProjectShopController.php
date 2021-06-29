@@ -107,9 +107,10 @@ class ProjectShopController extends Controller
      */
     public function destroy($id)
     {
-
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item=ProjectShop::find($id);
         $item->delete();
+        }
         return redirect()->back();
     }
 }

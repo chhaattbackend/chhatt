@@ -124,7 +124,7 @@ class AgentController extends Controller
             'areas' => 'min:1',
             'speciality' => 'min:1',
             ]);
-            
+
         $agent = Agent::create($request->all());
 
         // dd($request->all());
@@ -227,8 +227,8 @@ class AgentController extends Controller
     public function destroy($id)
     {
         if(auth()->user()->email == 'chhattofficial@chhatt.com'){
-            
-            
+                
+
             $item = Agent::find($id);
             $item->delete();
             AgentSpeciality::where('agent_id',$id)->delete();

@@ -114,8 +114,10 @@ class AgentSpecialityController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = AgentSpeciality::find($id);
         $item->delete();
+        }
         return redirect()->back();
     }
 }

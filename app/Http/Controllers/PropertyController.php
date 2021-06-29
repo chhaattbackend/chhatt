@@ -76,6 +76,7 @@ class PropertyController extends Controller
                 ->orWhere('type', 'like', '%' . $seacrh . '%')
                 ->orWhere('id',$seacrh)
                 ->orWhere('description', 'like', '%' . $seacrh . '%')
+                ->orWhere('progress', 'like', '%' . $seacrh . '%')
                 ->paginate(25)->setPath('');
 
             $pagination = $properties->appends(array(
@@ -140,7 +141,7 @@ class PropertyController extends Controller
             $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
             $filename = 'marker' . time() . 'png';
-            
+
             Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
             PropertyImage::create([
                 'property_id' => $property->id,
@@ -226,9 +227,10 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $property = Property::find($id);
         $property->delete();
+    }
         return redirect()->back();
     }
     public function filter(Request $request)

@@ -245,10 +245,11 @@ class LeadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Lead $lead)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         // if(auth()->user()->role->name='Administrator'){
         $lead->delete();
         // }
+    }
         return redirect()->back();
     }
 
@@ -478,7 +479,7 @@ Updated By: ' . auth()->user()->name . '
 Updated At: ' . date("h:m A d-M-y"),
             ]);
 
-            return response()->json([ 
+            return response()->json([
                 'desc' => $request->desc_val . '
 Updated By: ' . auth()->user()->name . '
 Updated At: ' . date("h:m A d-M-y")

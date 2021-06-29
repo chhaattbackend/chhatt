@@ -29,7 +29,7 @@ class AgencyController extends Controller
 
 
         if (!$request->keyword) {
-            if (auth()->user()->role->name == 'Agency'){
+            if (auth()->user()->role->name == 'Agents' || auth()->user()->role->name == 'Agency'){
 
                 $agencies = Agency::where('user_id',auth()->user()->id)->get();
                 $area_one = AreaOne::all();
@@ -40,7 +40,7 @@ class AgencyController extends Controller
             $agencies = Agency::orderBy('created_at', 'desc')->paginate(25);
             }
         } else {
-            if(auth()->user()->role->name == 'Agency'){
+            if(auth()->user()->role->name == 'Agents' || auth()->user()->role->name == 'Agency'){
                 $seacrh = $request->keyword;
                 $agencies = Agency::where('user_id',auth()->user()->id)->orderBy('created_at', 'desc');
 

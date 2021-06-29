@@ -84,8 +84,9 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(role $role)
-    {
+    {if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $role->delete();
+    }
         return redirect()->back();
     }
 }

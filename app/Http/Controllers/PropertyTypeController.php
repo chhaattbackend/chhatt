@@ -82,9 +82,10 @@ class PropertyTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = PropertyType::find($id);
         $item->delete();
+    }
         return redirect()->back();
     }
 }

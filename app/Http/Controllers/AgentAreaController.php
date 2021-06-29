@@ -112,8 +112,10 @@ class AgentAreaController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = AgentArea::find($id);
         $item->delete();
+    }
         return redirect()->back();
     }
 }

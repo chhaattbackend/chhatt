@@ -106,9 +106,10 @@ class ProjectBuyerController extends Controller
      */
     public function destroy($id)
     {
-
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = ProjectBuyer::find($id);
         $item->delete();
+        }
         return redirect()->back();
     }
 }

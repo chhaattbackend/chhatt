@@ -108,8 +108,10 @@ class AreaTwoController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = AreaTwo::find($id);
         $item->delete();
+        }
         return redirect()->back();
     }
 }

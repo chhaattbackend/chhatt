@@ -81,9 +81,10 @@ class LeadSourceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = LeadSource::find($id);
         $item->delete();
+    }
         return redirect()->back();
     }
 }

@@ -348,6 +348,13 @@
                                             placeholder="Enter Address" rows="4">{{ $property->description }}</textarea>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Progress</label>
+                                    <div class="col-sm-6">
+                                        <textarea class="form-control" id="progress" name="progress"
+                                            placeholder="Enter Address" rows="4">{{ @$property->progress }}</textarea>
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Priority</label>

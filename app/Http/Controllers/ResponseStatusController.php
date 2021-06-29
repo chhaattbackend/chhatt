@@ -81,9 +81,10 @@ class ResponseStatusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(ResponseStatus $responseStatus,$id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = ResponseStatus::find($id);
         $item->delete();
+    }
         return redirect()->back();
     }
 }

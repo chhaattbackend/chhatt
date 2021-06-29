@@ -197,11 +197,12 @@
                             <th>Bath</th>
                             <th>images</th>
                             {{-- <th>Description</th> --}}
+                            <th>progress</th>
                             <th>Platform</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>Priority</th>
-                            {{-- <th>Advertised</th> --}} 
+                            {{-- <th>Advertised</th> --}}
                             <th>Edit Image</th>
 
                             <th>Action</th>
@@ -232,6 +233,7 @@
                                 <td>{{ $item->bed }}</td>
                                 <td>{{ $item->bath }}</td>
                                 <td>{{ count($item->images) }}</td>
+                                <td>{{ @$item->progress }}</td>
                                 <td>{{ $item->platform }}</td>
                                 <td>{{ $item->created_at->diffForHumans() }}</td>
                                 <td>{{ $item->updated_at->diffForHumans() }}</td>

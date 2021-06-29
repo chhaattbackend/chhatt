@@ -145,8 +145,9 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         Project::where('id', $id)->delete();
+    }
         return redirect()->back();
     }
 

@@ -59,7 +59,7 @@ class PropertyImageController extends Controller
      */
     public function show(PropertyImage $propertyImage)
     {
-        
+
     }
 
     /**
@@ -128,9 +128,10 @@ class PropertyImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $propertyImage = PropertyImage::find($id);
         $propertyImage->delete();
+    }
         return redirect()->back();
     }
 }

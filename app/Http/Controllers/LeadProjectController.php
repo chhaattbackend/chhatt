@@ -146,9 +146,10 @@ class LeadProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $leadProject = LeadProject::find($id);
         $leadProject->delete();
+    }
         return redirect()->back();
     }
 

@@ -24,6 +24,7 @@ class Property extends Model
         'bath',
         'image',
         'description',
+        'progress',
         'priority',
         'advertised',
         'images',
