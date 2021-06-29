@@ -26,11 +26,42 @@ class AgencyController extends Controller
 
     public function index(Request $request)
     {
-        if (!$request->keyword) {
-            $agencies = Agency::orderBy('created_at', 'desc')->paginate(25);
-        } else {
 
-            $seacrh = $request->keyword;
+
+        if (!$request->keyword) {
+            if (auth()->user()->role->name == 'Agency'){
+
+                $agencies = Agency::where('user_id',auth()->user()->id)->get();
+                $area_one = AreaOne::all();
+                $area_two = AreaTwo::all();
+
+            }
+            else{
+            $agencies = Agency::orderBy('created_at', 'desc')->paginate(25);
+            }
+        } else {
+            if(auth()->user()->role->name == 'Agency'){
+                $seacrh = $request->keyword;
+                $agencies = Agency::where('user_id',auth()->user()->id)->orderBy('created_at', 'desc');
+
+                $agencies = $agencies->whereHas('user', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('areaOne', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('user', function ($query) use ($seacrh) {
+                    $query->where('phone',$seacrh);
+                })->orWhere('id',$seacrh)
+                ->orWhere('name', 'like', '%' . $seacrh . '%')
+                ->paginate(25)->setPath('');
+
+                $pagination = $agencies->appends(array(
+                    'keyword' => $request->keyword
+                ));
+            }
+           else{
+               $seacrh = $request->keyword;
             $agencies = Agency::where('id', '!=', null)->orderBy('created_at', 'desc');
 
             $agencies = $agencies->whereHas('user', function ($query) use ($seacrh) {
@@ -48,6 +79,7 @@ class AgencyController extends Controller
             $pagination = $agencies->appends(array(
                 'keyword' => $request->keyword
             ));
+        }
         }
         $area_one = AreaOne::all();
         $area_two = AreaTwo::all();
