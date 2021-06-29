@@ -69,7 +69,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-
+        if (auth()->user()->role->name == 'Administrator'){
         $filename = null;
         //$data=>array();
         $message=str_ireplace('<br />','%0A',nl2br($request->message));
@@ -80,6 +80,7 @@ class ProjectController extends Controller
             $image->move(public_path('images/projects/'), $filename);
         }
         $data = Project::create($request->except('image','message') + ['image' => $filename,'message'=>$message]);
+    }
         return redirect()->route('projects.index');
 
         // return redirect('admin/projects')->with('u_message', 'successfuly updated!');
@@ -124,7 +125,8 @@ class ProjectController extends Controller
     {
         // $filename=null;
 
-        //$data=>array();
+
+        if (auth()->user()->role->name == 'Administrator'){
         $message=str_ireplace('<br />','%0A',nl2br($request->message));
         if ($request->hasfile('image')) {
             $image = $request->file('image');
@@ -135,6 +137,7 @@ class ProjectController extends Controller
         } else {
             $project->update($request->except('image','message')+['message'=>$message]);
         }
+    }
         return redirect()->route('projects.index');
     }
 

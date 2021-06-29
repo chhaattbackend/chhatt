@@ -88,12 +88,13 @@ class LeadProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         LeadProject::create([
             'project_id' => $request->project_id,
             'lead_id' => $request->lead_id,
 
         ]);
+    }
         return redirect()->route('leadprojects.index');
     }
 
@@ -133,9 +134,10 @@ class LeadProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $leadProject = LeadProject::find($id);
         $leadProject->update($request->all());
+    }
         return redirect()->route('leadprojects.index');
     }
 

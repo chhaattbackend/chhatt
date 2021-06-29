@@ -36,8 +36,9 @@ class LeadTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         LeadType::create($request->all());
+    }
         return redirect()->route('leadtypes.index');
     }
 

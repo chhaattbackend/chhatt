@@ -117,7 +117,7 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $request->platform = 'Web | '. auth()->user()->email;
         $marker = 1;
         if($request->type == 'Residential'){
@@ -149,6 +149,7 @@ class PropertyController extends Controller
                 'sort_order' => 9
             ]);
         }
+    }
         return redirect()->route('properties.index');
     }
 
@@ -197,7 +198,7 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
         // @dd('wow');
-
+        if (auth()->user()->role->name == 'Administrator'){
         $property = Property::find($id);
         $property->update($request->all());
         $link = $request->link;
@@ -216,6 +217,7 @@ class PropertyController extends Controller
             //     'sort_order' => 9
             // ]);
         }
+    }
         return redirect($link)->with('message', 'Property Updated Successfully!');
     }
 

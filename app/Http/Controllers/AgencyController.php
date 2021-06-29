@@ -113,7 +113,7 @@ class AgencyController extends Controller
      */
     public function store(Request $request)
     {
-
+        if (auth()->user()->role->name == 'Administrator'){
         // dd($request->all());
         $this->validate($request,[
             'user_id' => 'required',
@@ -129,6 +129,7 @@ class AgencyController extends Controller
         else{
             Agency::create($request->except('image'));
         }
+    }
         return redirect()->route('agencies.index');
     }
 
@@ -181,7 +182,7 @@ class AgencyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $agency = Agency::find($id);
         if ($request->file('image')) {
             $filename = $this->globalclass->storeS3($request->file('image'), 'agencies');
@@ -189,7 +190,7 @@ class AgencyController extends Controller
         } else {
             $agency->update($request->all());
         }
-
+    }
         return redirect()->route('agencies.index');
     }
 

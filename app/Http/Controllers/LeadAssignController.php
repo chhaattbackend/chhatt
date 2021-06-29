@@ -68,12 +68,13 @@ class LeadAssignController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         LeadAssign::create([
             'agent_id' => $request->agent_id,
             'lead_id' => $request->lead_id,
 
         ]);
+    }
         return redirect()->route('leadassigns.index');
     }
 
@@ -113,10 +114,10 @@ class LeadAssignController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $leadAssign = LeadAssign::find($id);
         $leadAssign->update($request->all());
-
+    }
         return redirect()->route('leadassigns.index');
     }
 

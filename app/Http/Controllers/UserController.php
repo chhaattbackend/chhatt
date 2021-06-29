@@ -74,7 +74,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $this->validate($request,[
             'phone' => 'regex:/(92)[0-9]{9}/',
             'mobile' => 'regex:/(92)[0-9]{9}/',
@@ -87,7 +87,7 @@ class UserController extends Controller
         else{
             User::create($request->except('password')+['password' => Hash::make($request->password),'type'=>'property']);
         }
-
+    }
         return redirect()->route('users.index');
     }
 
@@ -122,7 +122,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, user $user)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         if (isset($request->newpassword)) {
             $user->update(['password' => Hash::make($request->newpassword)]);
         }
@@ -134,6 +134,7 @@ class UserController extends Controller
         else{
             $user->update($request->all());
         }
+    }
         return redirect()->route('users.index');
     }
 

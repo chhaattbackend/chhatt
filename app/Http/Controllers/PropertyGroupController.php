@@ -38,8 +38,9 @@ class PropertyGroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         PropertyGroup::create($request->all());
+    }
         return redirect()->route('propertygroups.index');
     }
 

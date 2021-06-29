@@ -56,9 +56,9 @@ class CityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         City::create($request->all());
-
+    }
         return redirect()->route('cities.index');
     }
 
@@ -95,8 +95,9 @@ class CityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         City::where('id', $id)->update($request->all());
+    }
 
         return redirect()->route('city.index');
     }

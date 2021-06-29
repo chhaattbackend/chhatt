@@ -35,8 +35,9 @@ class ResponseStatusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         ResponseStatus::create($request->all());
+    }
         return redirect()->route('responsestatus.index');
     }
 

@@ -46,8 +46,9 @@ class PropertyForController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         PropertyFor::create($request->all());
+    }
         return redirect()->route('propertyfor.index');
     }
 
@@ -83,9 +84,10 @@ class PropertyForController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $propertyfor = PropertyFor::find($id);
         $propertyfor->update($request->all());
+    }
 
         return redirect()->route('propertyfor.index');
     }

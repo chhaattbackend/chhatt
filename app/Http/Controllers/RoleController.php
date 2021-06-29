@@ -36,8 +36,9 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         Role::create($request->all());
+    }
         return redirect()->route('roles.index');
     }
 
@@ -72,8 +73,9 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, role $role)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $role->update($request->all());
+    }
         return redirect()->route('roles.index');
     }
 

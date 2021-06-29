@@ -43,9 +43,9 @@ class ProjectSaleInstallmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {if (auth()->user()->role->name == 'Administrator'){
         $data = ProjectSaleInstallment::create($request->all());
-
+    }
         return redirect()->route('admin.psinstallments.index');
     }
 
@@ -83,9 +83,9 @@ class ProjectSaleInstallmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $data = ProjectSaleInstallment::where('id',$id)->update($request->except('_token'));
-
+    }
         return redirect()->route('admin.psinstallments.index');
     }
 

@@ -81,7 +81,7 @@ class PropertyImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, PropertyImage $propertyImage)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         // $this->globalclass->storeMultipleS3($request->file('images'),'properties',$request->property_id);
 
         $property = Property::find($request->property_id);
@@ -117,7 +117,7 @@ class PropertyImageController extends Controller
             }
 
         }
-
+    }
         return redirect()->back();
     }
 

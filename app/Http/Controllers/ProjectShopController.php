@@ -56,8 +56,9 @@ class ProjectShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         ProjectShop::create($request->all());
+    }
         return redirect()->route('projectshops.index');
     }
 
@@ -93,9 +94,10 @@ class ProjectShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $projectshop=ProjectShop::find($id);
         $projectshop->update($request->all());
+    }
         return redirect()->route('projectshops.index');
     }
 

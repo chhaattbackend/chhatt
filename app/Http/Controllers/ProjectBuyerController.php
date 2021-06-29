@@ -55,8 +55,9 @@ class ProjectBuyerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {if (auth()->user()->role->name == 'Administrator'){
         ProjectBuyer::create($request->all());
+    }
         return redirect()->route('projectbuyers.index');
     }
 
@@ -92,9 +93,10 @@ class ProjectBuyerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $projectbuyer = ProjectBuyer::find($id);
         $projectbuyer->update($request->all());
+    }
         return redirect()->route('projectbuyers.index');
     }
 

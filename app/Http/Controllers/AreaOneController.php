@@ -70,8 +70,9 @@ class AreaOneController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         AreaOne::create($request->all());
+    }
         return redirect()->route('areaones.index');
     }
 
@@ -147,10 +148,10 @@ class AreaOneController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $areaone = AreaOne::find($id);
         $areaone->update($request->all());
-
+    }
         return redirect()->route('areaones.index');
     }
 

@@ -62,9 +62,9 @@ class AgentSpecialityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         AgentSpeciality::create($request->all());
-
+    }
         return redirect()->route('agent_speciality.index');
     }
 
@@ -100,9 +100,9 @@ class AgentSpecialityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         AgentSpeciality::where('id', $id)->update($request->all());
-
+    }
         return redirect()->route('agent_speciality.index');
     }
 

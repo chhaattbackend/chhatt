@@ -36,8 +36,9 @@ class PropertyTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         PropertyType::create($request->all());
+    }
         return redirect()->route('propertytypes.index');
     }
 

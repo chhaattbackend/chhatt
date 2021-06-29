@@ -60,9 +60,9 @@ class AreaThreeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         AreaThree::create($request->all());
-
+    }
         return redirect()->route('areathrees.index');
     }
 
@@ -99,10 +99,10 @@ class AreaThreeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $areathree = AreaThree::find($id);
         $areathree->update($request->all());
-
+    }
         return redirect()->route('areathrees.index');
     }
 

@@ -61,8 +61,9 @@ class ProjectSaleController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth()->user()->role->name == 'Administrator'){
         $data = ProjectSale::create($request->all());
-
+        }
         return redirect()->route('projectsales.index');
     }
 
@@ -101,10 +102,11 @@ class ProjectSaleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {if (auth()->user()->role->name == 'Administrator'){
         // ProjectSale::where('id',$id)->update($request->all());
         $projectsale = ProjectSale::find($id);
         $projectsale->update($request->all());
+    }
         return redirect()->route('projectsales.index');
     }
 

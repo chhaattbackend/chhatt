@@ -35,8 +35,9 @@ class LeadSourceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         LeadSource::create($request->all());
+    }
         return redirect()->route('leadsources.index');
     }
 

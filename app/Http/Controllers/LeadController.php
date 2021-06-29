@@ -182,9 +182,10 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        if (auth()->user()->role->name == 'Administrator'){
         Lead::create($request->all() + ['created_by' => auth()->user()->id]);
 
-
+        }
         return redirect()->route('leads.index');
     }
 
@@ -232,9 +233,9 @@ class LeadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Lead $lead)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $lead->update($request->all());
-
+    }
         return redirect()->away($request->previous_url);
     }
 

@@ -49,9 +49,9 @@ class SpecialityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         Speciality::create($request->all());
-
+    }
         return redirect()->route('specialities.index');
 
     }
@@ -88,10 +88,10 @@ class SpecialityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $speciality = Speciality::find($id);
         $speciality->update($request->all());
-
+    }
         return redirect()->route('specialities.index');
     }
 

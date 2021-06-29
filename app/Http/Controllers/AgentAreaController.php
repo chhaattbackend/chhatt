@@ -60,9 +60,9 @@ class AgentAreaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         AgentArea::create($request->all());
-
+    }
         return redirect()->route('agent_speciality.index');
     }
 
@@ -99,8 +99,9 @@ class AgentAreaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (auth()->user()->role->name == 'Administrator'){
         AgentArea::where('id', $id)->update($request->all());
-
+        }
         return redirect()->route('agent_speciality.index');
     }
 

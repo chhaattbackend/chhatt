@@ -78,11 +78,12 @@ class LeadPropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         LeadProperty::create([
             'property_id'=>$request->property_id,
             'lead_id'=>$request->lead_id,
         ]);
+    }
         return redirect()->route('leadproperties.index');
     }
 
@@ -122,9 +123,10 @@ class LeadPropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         $leadProperty = LeadProperty::find($id);
         $leadProperty->update($request->all());
+    }
         return redirect()->route('leadproperties.index');
     }
 

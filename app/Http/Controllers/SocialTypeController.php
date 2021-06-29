@@ -35,8 +35,9 @@ class SocialTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'Administrator'){
         SocialType::create($request->all());
+    }
         return redirect()->route('socialtypes.index');
     }
 
