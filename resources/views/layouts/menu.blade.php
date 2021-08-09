@@ -15,7 +15,6 @@
         </a>
     </li>
 
-
     <li class="nav-item has-treeview  @if (url()->current() == route('users.index') ||
         url()->current() == route('users.create')) menu-open @endif">
         <a href="#" class="nav-link">

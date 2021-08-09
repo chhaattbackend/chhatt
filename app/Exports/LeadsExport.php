@@ -14,14 +14,14 @@ class LeadsExport implements FromCollection
     */
     public function collection()
     {
-        // return Lead::all();
-        $lead_project = LeadProject::select('project_id','lead_id')->get();
-        foreach ($lead_project as $item) {
-            $item->project_id=str_ireplace("?",'',$item->lead->name).' '.explode(" ",$item->project->name)[0];
-            $item->lead_id='0'.optional($item->lead)->phone;
+        return Lead::all();
+        // $lead_project = LeadProject::select('project_id','lead_id')->get();
+        // foreach ($lead_project as $item) {
+        //     $item->project_id=str_ireplace("?",'',$item->lead->name).' '.explode(" ",$item->project->name)[0];
+        //     $item->lead_id='0'.optional($item->lead)->phone;
 
-          }
-        return $lead_project;
+        //   }
+        // return $lead_project;
 
 
 
