@@ -87,12 +87,6 @@ class AgentController extends Controller
         return view('admin.agent.index', compact('agents', 'area_one', 'area_two'));
     }
 
-
-
-
-
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -117,7 +111,7 @@ class AgentController extends Controller
      */
     public function store(Request $request)
     {
-        if (auth()->user()->role->name == 'Administrator'){
+        if (auth()->user()->role->name == 'Administrator' || auth()->user()->role->name == 'Agency'){
         $this->validate($request,[
             'user_id' => 'required',
             'agency_id' => 'required',
@@ -166,6 +160,7 @@ class AgentController extends Controller
      */
     public function edit($id)
     {
+
         $agent = Agent::find($id);
         $position = Position::all();
         $agency = Agency::all();
@@ -185,7 +180,8 @@ class AgentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (auth()->user()->role->name == 'Administrator'){
+        if (auth()->user()->role->name == 'Administrator' || auth()->user()->role->name == 'Agency'){
+
         $agent = Agent::find($id)->update($request->all());
 
         AgentSpeciality::where('agent_id',$id)->delete();

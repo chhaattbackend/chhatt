@@ -53,6 +53,10 @@ class Property extends Model
 
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function agency()
+    {
+        return $this->belongsTo(Agency::class, 'agency_id');
+    }
 
     public function areaOne()
     {

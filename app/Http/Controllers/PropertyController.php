@@ -48,47 +48,80 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+    {   
 
         if (!$request->keyword) {
-
-            $properties = Property::orderBy('created_at', 'desc')->paginate(25);
+            if (auth()->user()->role->name == 'Agency') {
+                $properties = Property::where('agency_id', auth()->user()->agency->id)->orderBy('created_at', 'desc')->paginate(25);
+            } else {
+                $properties = Property::orderBy('created_at', 'desc')->paginate(25);
+            }
         } else {
 
-            $seacrh = $request->keyword;
-            $properties = Property::where('id', '!=', null)->orderBy('updated_at', 'desc');
+            if (auth()->user()->role->name == 'Agency') {
+                $seacrh = $request->keyword;
+                $properties = Property::where('agency_id', auth()->user()->agency->id)->orderBy('updated_at', 'desc');
 
-            $properties = $properties->whereHas('user', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('user', function ($query) use ($seacrh) {
-                $query->whereHas('agent', function ($query) use ($seacrh) {
-                    $query->whereHas('agency', function ($query) use ($seacrh) {
-                        $query->where('name', 'like', '%' . $seacrh . '%');
+                $properties = $properties->whereHas('user', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('user', function ($query) use ($seacrh) {
+                    $query->whereHas('agent', function ($query) use ($seacrh) {
+                        $query->whereHas('agency', function ($query) use ($seacrh) {
+                            $query->where('name', 'like', '%' . $seacrh . '%');
+                        });
                     });
-                });
-            })->orWhereHas('areaOne', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('areaThree', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhere('name', 'like', '%' . $seacrh . '%')
-                ->orWhere('type', 'like', '%' . $seacrh . '%')
-                ->orWhere('id',$seacrh)
-                ->orWhere('description', 'like', '%' . $seacrh . '%')
-                ->orWhere('progress', 'like', '%' . $seacrh . '%')
-                ->paginate(25)->setPath('');
+                })->orWhereHas('areaOne', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('areaThree', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhere('name', 'like', '%' . $seacrh . '%')
+                    ->orWhere('type', 'like', '%' . $seacrh . '%')
+                    ->orWhere('id', $seacrh)
+                    ->orWhere('description', 'like', '%' . $seacrh . '%')
+                    ->orWhere('progress', 'like', '%' . $seacrh . '%')
+                    ->paginate(25)->setPath('');
 
-            $pagination = $properties->appends(array(
-                'keyword' => $request->keyword
-            ));
+                $pagination = $properties->appends(array(
+                    'keyword' => $request->keyword
+                ));
+            } else{
+                $seacrh = $request->keyword;
+                $properties = Property::where('id', '!=', null)->orderBy('updated_at', 'desc');
+
+                $properties = $properties->whereHas('user', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('user', function ($query) use ($seacrh) {
+                    $query->whereHas('agent', function ($query) use ($seacrh) {
+                        $query->whereHas('agency', function ($query) use ($seacrh) {
+                            $query->where('name', 'like', '%' . $seacrh . '%');
+                        });
+                    });
+                })->orWhereHas('areaOne', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('areaThree', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhere('name', 'like', '%' . $seacrh . '%')
+                    ->orWhere('type', 'like', '%' . $seacrh . '%')
+                    ->orWhere('id', $seacrh)
+                    ->orWhere('description', 'like', '%' . $seacrh . '%')
+                    ->orWhere('progress', 'like', '%' . $seacrh . '%')
+                    ->paginate(25)->setPath('');
+
+                $pagination = $properties->appends(array(
+                    'keyword' => $request->keyword
+                ));
+            }
         }
 
         $area_one = AreaOne::all();
         $area_two = AreaTwo::all();
 
-        return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
 
+        return view('admin.property.index', compact('properties', 'area_one', 'area_two'));
     }
 
     /**
@@ -107,7 +140,7 @@ class PropertyController extends Controller
         $propertytype = PropertyType::all();
         $propertySocialTypes = SocialType::all();
         $propertySocialGroups = PropertyGroup::all();
-        return view('admin.property.create', compact(['users','city', 'area_one', 'area_two', 'area_three', 'propertyfor', 'propertytype', 'propertySocialTypes', 'propertySocialGroups']));
+        return view('admin.property.create', compact(['users', 'city', 'area_one', 'area_two', 'area_three', 'propertyfor', 'propertytype', 'propertySocialTypes', 'propertySocialGroups']));
     }
 
     /**
@@ -117,39 +150,39 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   if (auth()->user()->role->name == 'Administrator'){
-        $request->platform = 'Web | '. auth()->user()->email;
-        $marker = 1;
-        if($request->type == 'Residential'){
-            $marker = 4;
-        }
-        if($request->type == 'Commercial'){
-            $marker = 3;
-        }
-        if($request->type == 'Industrial'){
+    {
+        if (auth()->user()->role->name == 'Administrator' || auth()->user()->role->name == 'Agency' ) {
+            $request->platform = 'Web | ' . auth()->user()->email;
             $marker = 1;
+            if ($request->type == 'Residential') {
+                $marker = 4;
+            }
+            if ($request->type == 'Commercial') {
+                $marker = 3;
+            }
+            if ($request->type == 'Industrial') {
+                $marker = 1;
+            }
+
+
+
+
+            $property = Property::create($request->except('images', 'platform') + ['platform' => $request->platform]);
+            if ($request->hasFile('images')) {
+                $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
+            } else {
+                $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker' . $marker . '.png%7C' . $request->latitude . ',' . $request->longitude . '&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+
+                $filename = 'marker' . time() . 'png';
+
+                Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
+                PropertyImage::create([
+                    'property_id' => $property->id,
+                    'name' => 'StaticMap/' . $filename,
+                    'sort_order' => 9
+                ]);
+            }
         }
-
-
-
-
-       $property = Property::create($request->except('images','platform')+['platform'=>$request->platform]);
-        if ($request->hasFile('images')) {
-            $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
-
-        } else {
-            $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker'.$marker.'.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
-
-            $filename = 'marker' . time() . 'png';
-
-            Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
-            PropertyImage::create([
-                'property_id' => $property->id,
-                'name' => 'StaticMap/' . $filename,
-                'sort_order' => 9
-            ]);
-        }
-    }
         return redirect()->route('properties.index');
     }
 
@@ -185,7 +218,7 @@ class PropertyController extends Controller
         $city = City::all();
         $link = url()->previous();
 
-       return view('admin.property.edit', compact(['city','property', 'users', 'area_one', 'area_two', 'area_three', 'propertyfor','link','propertytype','propertySocialTypes', 'propertySocialGroups']));
+        return view('admin.property.edit', compact(['city', 'property', 'users', 'area_one', 'area_two', 'area_three', 'propertyfor', 'link', 'propertytype', 'propertySocialTypes', 'propertySocialGroups']));
     }
 
     /**
@@ -198,26 +231,26 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
         // @dd('wow');
-        if (auth()->user()->role->name == 'Administrator'){
-        $property = Property::find($id);
-        $property->update($request->all());
-        $link = $request->link;
-        // @dd($link);
+        if (auth()->user()->role->name == 'Administrator' ||  auth()->user()->role->name == 'Agency') {
+            $property = Property::find($id);
+            $property->update($request->all());
+            $link = $request->link;
+            // @dd($link);
 
-        if ($request->hasFile('images')) {
-            $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
-        } else {
-            // $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker1.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
+            if ($request->hasFile('images')) {
+                $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
+            } else {
+                // $contents = file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=' . $request->latlong . '&zoom=18&size=640x450&maptype=satellite&markers=icon:https://chhatt.com/StaticMap/Pins/marker1.png%7C'.$request->latitude.','.$request->longitude.'&key=AIzaSyAAdMS03mAk6qDSf4HUmZmcjvSkiSN7jIU');
 
-            // $filename = 'marker' . time() . 'png';
-            // Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
-            // PropertyImage::create([
-            //     'property_id' => $property->id,
-            //     'name' => 'StaticMap/' . $filename,
-            //     'sort_order' => 9
-            // ]);
+                // $filename = 'marker' . time() . 'png';
+                // Storage::disk('s3')->put('properties/StaticMap/' . $filename, $contents);
+                // PropertyImage::create([
+                //     'property_id' => $property->id,
+                //     'name' => 'StaticMap/' . $filename,
+                //     'sort_order' => 9
+                // ]);
+            }
         }
-    }
         return redirect($link)->with('message', 'Property Updated Successfully!');
     }
 
@@ -229,10 +262,11 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
-        $property = Property::find($id);
-        $property->delete();
-    }
+    {
+        if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+            $property = Property::find($id);
+            $property->delete();
+        }
         return redirect()->back();
     }
     public function filter(Request $request)

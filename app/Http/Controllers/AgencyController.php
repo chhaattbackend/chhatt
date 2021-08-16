@@ -29,20 +29,18 @@ class AgencyController extends Controller
 
 
         if (!$request->keyword) {
-            if (auth()->user()->role->name == 'Agents' || auth()->user()->role->name == 'Agency'){
+            if (auth()->user()->role->name == 'Agents' || auth()->user()->role->name == 'Agency') {
 
-                $agencies = Agency::where('user_id',auth()->user()->id)->get();
+                $agencies = Agency::where('user_id', auth()->user()->id)->get();
                 $area_one = AreaOne::all();
                 $area_two = AreaTwo::all();
-
-            }
-            else{
-            $agencies = Agency::orderBy('created_at', 'desc')->paginate(25);
+            } else {
+                $agencies = Agency::orderBy('created_at', 'desc')->paginate(25);
             }
         } else {
-            if(auth()->user()->role->name == 'Agents' || auth()->user()->role->name == 'Agency'){
+            if (auth()->user()->role->name == 'Agents' || auth()->user()->role->name == 'Agency') {
                 $seacrh = $request->keyword;
-                $agencies = Agency::where('user_id',auth()->user()->id)->orderBy('created_at', 'desc');
+                $agencies = Agency::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc');
 
                 $agencies = $agencies->whereHas('user', function ($query) use ($seacrh) {
                     $query->where('name', 'like', '%' . $seacrh . '%');
@@ -51,35 +49,34 @@ class AgencyController extends Controller
                 })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
                     $query->where('name', 'like', '%' . $seacrh . '%');
                 })->orWhereHas('user', function ($query) use ($seacrh) {
-                    $query->where('phone',$seacrh);
-                })->orWhere('id',$seacrh)
-                ->orWhere('name', 'like', '%' . $seacrh . '%')
-                ->paginate(25)->setPath('');
+                    $query->where('phone', $seacrh);
+                })->orWhere('id', $seacrh)
+                    ->orWhere('name', 'like', '%' . $seacrh . '%')
+                    ->paginate(25)->setPath('');
+
+                $pagination = $agencies->appends(array(
+                    'keyword' => $request->keyword
+                ));
+            } else {
+                $seacrh = $request->keyword;
+                $agencies = Agency::where('id', '!=', null)->orderBy('created_at', 'desc');
+
+                $agencies = $agencies->whereHas('user', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('areaOne', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('user', function ($query) use ($seacrh) {
+                    $query->where('phone', $seacrh);
+                })->orWhere('id', $seacrh)
+                    ->orWhere('name', 'like', '%' . $seacrh . '%')
+                    ->paginate(25)->setPath('');
 
                 $pagination = $agencies->appends(array(
                     'keyword' => $request->keyword
                 ));
             }
-           else{
-               $seacrh = $request->keyword;
-            $agencies = Agency::where('id', '!=', null)->orderBy('created_at', 'desc');
-
-            $agencies = $agencies->whereHas('user', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('areaOne', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
-                $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('user', function ($query) use ($seacrh) {
-                $query->where('phone',$seacrh);
-            })->orWhere('id',$seacrh)
-            ->orWhere('name', 'like', '%' . $seacrh . '%')
-            ->paginate(25)->setPath('');
-
-            $pagination = $agencies->appends(array(
-                'keyword' => $request->keyword
-            ));
-        }
         }
         $area_one = AreaOne::all();
         $area_two = AreaTwo::all();
@@ -113,23 +110,22 @@ class AgencyController extends Controller
      */
     public function store(Request $request)
     {
-        if (auth()->user()->role->name == 'Administrator'){
-        // dd($request->all());
-        $this->validate($request,[
-            'user_id' => 'required',
-            'area_one_id' => 'required',
-            'name' => 'required',
-            'area_two_id' => 'required',
-            ]);
+        if (auth()->user()->role->name == 'Administrator' || auth()->user()->role->name == 'Agency') {
+            // dd($request->all());
+            $this->validate($request, [
+                'user_id' => 'required',
+                'area_one_id' => 'required',
+                'name' => 'required',
+                'area_two_id' => 'required',
 
-        if ($request->file('image')) {
-            $filename = $this->globalclass->storeS3($request->file('image'), 'agencies');
-            Agency::create($request->except('image') + ["image" => $filename]);
+            ]);
+            if ($request->file('image')) {
+                $filename = $this->globalclass->storeS3($request->file('image'), 'agencies');
+                Agency::create($request->except('image') + ["image" => $filename]);
+            } else {
+                Agency::create($request->except('image'));
+            }
         }
-        else{
-            Agency::create($request->except('image'));
-        }
-    }
         return redirect()->route('agencies.index');
     }
 
@@ -144,16 +140,14 @@ class AgencyController extends Controller
         $agents = Agent::where('agency_id', $agency->id)->get();
         $agentproperties = 0;
 
-        foreach($agents as $agent) {
+        foreach ($agents as $agent) {
             $agentproperties += count($agent->user->properties);
-
-
         }
-        $agencyproperties=$agency->properties->count();
-        $totalproperties= $agencyproperties+$agentproperties;
+        $agencyproperties = $agency->properties->count();
+        $totalproperties = $agencyproperties + $agentproperties;
 
 
-        return view("admin.agency.show", compact(['agency','agents','totalproperties']));
+        return view("admin.agency.show", compact(['agency', 'agents', 'totalproperties']));
     }
 
     /**
@@ -182,15 +176,16 @@ class AgencyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   if (auth()->user()->role->name == 'Administrator'){
-        $agency = Agency::find($id);
-        if ($request->file('image')) {
-            $filename = $this->globalclass->storeS3($request->file('image'), 'agencies');
-            $agency->update($request->except('image') + ["image" => $filename]);
-        } else {
-            $agency->update($request->all());
+    {
+        if (auth()->user()->role->name == 'Administrator' || auth()->user()->role->name == 'Agency') {
+            $agency = Agency::find($id);
+            if ($request->file('image')) {
+                $filename = $this->globalclass->storeS3($request->file('image'), 'agencies');
+                $agency->update($request->except('image') + ["image" => $filename]);
+            } else {
+                $agency->update($request->all());
+            }
         }
-    }
         return redirect()->route('agencies.index');
     }
 
@@ -202,7 +197,7 @@ class AgencyController extends Controller
      */
     public function destroy($id)
     {
-        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
+        if (auth()->user()->email == 'chhattofficial@chhatt.com') {
 
             $item = Agency::find($id);
             $item->delete();
