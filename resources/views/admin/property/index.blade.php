@@ -216,10 +216,12 @@
 
                                 <td>{{ optional($item->user)->name }}</td>
                                 <td>
-                                    {{-- @if (optional($item->user)->agent != null)
+                                    @if (optional($item->agency_id) == null)
                                         {{ optional($item->user->agent->agency)->name }}
-                                    @endif --}}
-                                    {{ optional($item->agency)->name }}
+                                        @else
+                                        {{ optional($item->agency)->name }}
+                                    @endif
+
                                 </td>
                                 <td>{{ optional($item->areaOne)->name }}</td>
                                 <td>{{ optional($item->areaTwo)->name }}</td>

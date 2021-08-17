@@ -9,6 +9,7 @@ use App\Lead;
 use App\Project;
 use App\Property;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +32,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $today_properties = Property::whereDate('created_at', Carbon::today())->count();
+        $today_agencies = Agency::whereDate('created_at', Carbon::today())->count();
         $agency=Agency::count();
         $agent=Agent::count();
         $general_members=User::where('role_id',4)->count();
@@ -39,7 +42,8 @@ class HomeController extends Controller
         $areas=AreaOne::paginate(10);
         $leads = Lead::orderBy('created_at','DESC')->paginate(5);
 
-        return view('home',compact('agency','agent','properties','projects','areas','general_members','leads'));
+
+        return view('home',compact('agency','agent','properties','projects','areas','general_members','leads','today_properties','today_agencies'));
     }
 
     public function ajaxSearch(){

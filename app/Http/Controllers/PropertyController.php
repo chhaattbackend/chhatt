@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Agent;
 use App\AreaOne;
 use App\AreaThree;
 use App\AreaTwo;
@@ -48,11 +49,13 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   
+    {
 
         if (!$request->keyword) {
             if (auth()->user()->role->name == 'Agency') {
-                $properties = Property::where('agency_id', auth()->user()->agency->id)->orderBy('created_at', 'desc')->paginate(25);
+                $agents = Agent::select('user_id')->where('agency_id',auth()->user()->agency->id)->get();
+                $properties = Property::whereIn('user_id',$agents)->orderBy('created_at', 'desc')->paginate(25);
+                // $properties = Property::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(25);
             } else {
                 $properties = Property::orderBy('created_at', 'desc')->paginate(25);
             }
