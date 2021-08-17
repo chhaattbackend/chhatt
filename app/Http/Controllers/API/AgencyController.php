@@ -192,6 +192,8 @@ class AgencyController extends Controller
     {
 
         $agency = Agency::find($request->id);
+
+        
         $agency->update($request->except('name', 'status') + [
             'name' => $request->agency_name,
             'status' => $request->agency_status
