@@ -166,10 +166,6 @@ class PropertyController extends Controller
             if ($request->type == 'Industrial') {
                 $marker = 1;
             }
-
-
-
-
             $property = Property::create($request->except('images', 'platform') + ['platform' => $request->platform]);
             if ($request->hasFile('images')) {
                 $this->globalclass->storeMultipleS3($request->file('images'), 'properties', $property->id);
